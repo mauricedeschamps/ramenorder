@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Ramen Catalog</title>
+  <title>Ramen Catalog - Lesson & Varieties</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e1a1a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,7 +24,6 @@
       min-height: 100vh;
     }
 
-    /* ダークモード（デフォルト） */
     body.dark {
       background-color: #121212;
       color: #f0f0f0;
@@ -39,7 +38,6 @@
       margin: 0 auto;
     }
 
-    /* ヘッダー */
     header {
       display: flex;
       flex-wrap: wrap;
@@ -82,14 +80,14 @@
       gap: 0.4rem;
     }
 
-    /* ===== スライド式グループ ===== */
+    /* スライド式グループ */
     .groups-slider {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox でスクロールバー非表示 */
+      scrollbar-width: none;
       margin: 1rem 0 2rem;
       border-radius: 1rem;
     }
@@ -146,7 +144,7 @@
       opacity: 0.8;
     }
 
-    /* 詳細ビューなど既存スタイル */
+    /* 詳細ビュー */
     .detail-view, .topping-view {
       background: rgba(0,0,0,0.2);
       border-radius: 1.5rem;
@@ -155,6 +153,24 @@
     }
     body.light .detail-view, body.light .topping-view {
       background: #fff0e0;
+    }
+    .ramen-image {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .ramen-image img {
+      max-width: 100%;
+      border-radius: 1rem;
+      max-height: 200px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .long-description {
+      background: rgba(0,0,0,0.1);
+      padding: 0.8rem;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
     }
     .options-section {
       margin: 1.5rem 0;
@@ -173,6 +189,7 @@
       padding: 0.5rem 1.2rem;
       border-radius: 2rem;
       cursor: pointer;
+      position: relative;
     }
     body.light .option-btn {
       background: #e8e0d0;
@@ -182,6 +199,13 @@
       background: #c49a6c;
       border-color: #c49a6c;
       color: white;
+    }
+    .option-desc {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 0.2rem;
+      display: block;
+      max-width: 200px;
     }
     .topping-list {
       display: flex;
@@ -196,9 +220,24 @@
       background: rgba(0,0,0,0.2);
       padding: 0.4rem 1rem;
       border-radius: 2rem;
+      position: relative;
     }
     body.light .topping-item {
       background: #e8e0d0;
+    }
+    .info-icon {
+      cursor: pointer;
+      font-weight: bold;
+      background: #888;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-left: 0.5rem;
     }
     .link-button {
       display: inline-block;
@@ -232,7 +271,6 @@
       padding: 0.8rem;
       margin-top: 1rem;
     }
-    /* スライダーインジケーター（オプション） */
     .slider-indicators {
       display: flex;
       justify-content: center;
@@ -261,7 +299,7 @@
 <body class="dark">
 <div class="container">
   <header>
-    <h1 data-i18n="app_title">🍜 Ramen Compass</h1>
+    <h1 data-i18n="app_title">🍜 Ramen Compass & Lesson</h1>
     <div class="controls">
       <div class="lang-btn-group">
         <button data-lang="en">🇬🇧 EN</button>
@@ -273,9 +311,7 @@
     </div>
   </header>
 
-  <main id="appMain">
-    <!-- 動的コンテンツ -->
-  </main>
+  <main id="appMain"></main>
 
   <footer>
     <p data-i18n="contact_us">Contact us</p>
@@ -287,13 +323,13 @@
   // ---------- 多言語辞書 ----------
   const translations = {
     en: {
-      app_title: "🍜 Ramen Compass",
+      app_title: "🍜 Ramen Compass & Lesson",
       back_to_home: "🏠 Home",
       back_previous: "◀ Back",
       next_step: "Next → Toppings",
-      select_soup: "Soup Style",
-      select_noodle: "Noodle Type",
-      toppings_title: "Choose Toppings",
+      select_soup: "1. Choose Soup Style",
+      select_noodle: "2. Choose Noodle Type",
+      toppings_title: "3. Choose Toppings",
       complete_order: "✨ Complete selection",
       selected: "Your choices:",
       official_link: "🌟 Official website example",
@@ -304,56 +340,65 @@
       choose_ramen_first: "Select a ramen style from the list",
       group_left: "Classic",
       group_center: "Specialty",
-      group_right: "Heavy & Bold"
+      group_right: "Heavy & Bold",
+      soup_lesson: "Soup is the heart of ramen. Clear soups are light and aromatic; creamy soups are rich and fatty; seafood adds umami; spicy gives a kick.",
+      noodle_lesson: "Noodles vary in thickness and texture. Thin straight: delicate; thick wavy: chewy; extra thick: for dipping; medium: versatile.",
+      topping_lesson: "Tap the ⓘ icon to learn about each topping!"
     },
     it: {
-      app_title: "🍜 Bussola Ramen",
+      app_title: "🍜 Ramen Compass & Lezione",
       back_to_home: "🏠 Home",
       back_previous: "◀ Indietro",
       next_step: "Avanti → Condimenti",
-      select_soup: "Brodo",
-      select_noodle: "Tipo di Pasta",
-      toppings_title: "Scegli i Topping",
+      select_soup: "1. Scegli Brodo",
+      select_noodle: "2. Scegli Pasta",
+      toppings_title: "3. Scegli Topping",
       complete_order: "✨ Completa scelta",
       selected: "Le tue scelte:",
-      official_link: "🌟 Sito ufficiale di esempio",
+      official_link: "🌟 Sito ufficiale esempio",
       contact_us: "Contattaci",
       soup: "Brodo",
       noodle: "Pasta",
       toppings: "Topping",
-      choose_ramen_first: "Seleziona un tipo di ramen dalla lista",
+      choose_ramen_first: "Seleziona un tipo di ramen",
       group_left: "Classici",
       group_center: "Specialità",
-      group_right: "Intensi & Audaci"
+      group_right: "Intensi",
+      soup_lesson: "Il brodo è il cuore. Chiaro: leggero; Cremoso: ricco; Pesce: umami; Piccante: speziato.",
+      noodle_lesson: "Sottile dritta: delicata; Spessa ondulata: gommosa; Extra spessa: per immersione; Media: versatile.",
+      topping_lesson: "Tocca ⓘ per info su ogni topping!"
     },
     ru: {
-      app_title: "🍜 Рамен гид",
+      app_title: "🍜 Гид по рамену + урок",
       back_to_home: "🏠 Главная",
       back_previous: "◀ Назад",
       next_step: "Далее → Топпинги",
-      select_soup: "Бульон",
-      select_noodle: "Тип лапши",
-      toppings_title: "Выберите топпинги",
+      select_soup: "1. Выберите бульон",
+      select_noodle: "2. Выберите лапшу",
+      toppings_title: "3. Топпинги",
       complete_order: "✨ Завершить",
       selected: "Ваш выбор:",
       official_link: "🌟 Пример офиц. сайта",
-      contact_us: "Связаться с нами",
+      contact_us: "Связаться",
       soup: "Бульон",
       noodle: "Лапша",
       toppings: "Топпинги",
-      choose_ramen_first: "Выберите вид рамена из списка",
+      choose_ramen_first: "Выберите вид рамена",
       group_left: "Классика",
       group_center: "Особые",
-      group_right: "Насыщенные"
+      group_right: "Насыщенные",
+      soup_lesson: "Бульон — сердце. Прозрачный: лёгкий; Сливочный: жирный; Рыбный: умами; Острый: пикантный.",
+      noodle_lesson: "Тонкая прямая: нежная; Толстая волнистая: жёваная; Экстра толстая: для макания; Средняя: универсальная.",
+      topping_lesson: "Нажмите ⓘ для описания топпинга!"
     },
     ja: {
-      app_title: "🍜 ラーメンカタログ",
+      app_title: "🍜 ラーメン講座＆カタログ",
       back_to_home: "🏠 ホーム",
       back_previous: "◀ 戻る",
       next_step: "次へ → トッピング",
-      select_soup: "スープの種類",
-      select_noodle: "麺の種類",
-      toppings_title: "トッピングを選ぶ",
+      select_soup: "1. スープを選ぶ",
+      select_noodle: "2. 麺を選ぶ",
+      toppings_title: "3. トッピングを選ぶ",
       complete_order: "✨ 選択完了",
       selected: "あなたの選択:",
       official_link: "🌟 公式サイト例",
@@ -364,7 +409,10 @@
       choose_ramen_first: "一覧からラーメンを選んでください",
       group_left: "定番",
       group_center: "スペシャル",
-      group_right: "濃厚・個性派"
+      group_right: "濃厚・個性派",
+      soup_lesson: "スープはラーメンの命。清湯はあっさり、白湯はコク、魚介は旨味、辛口はピリリ。",
+      noodle_lesson: "麺の太さと食感。細ストレート：繊細、太ちぢれ：モチモチ、極太：つけ麺向き、中太：万能。",
+      topping_lesson: "ⓘ をタップすると各トッピングの説明が表示されます。"
     }
   };
 
@@ -377,177 +425,239 @@
   let selectedToppings = [];
   let showingTopping = false;
 
-  // ラーメンデータ（元の順番は変更せず、グループ分けはidベース）
+  // ---------- ラーメンデータ（詳細説明・画像プレースホルダー付き）----------
   const ramenData = [
-    { id: "shoyu", name_en:"Shoyu", name_it:"Shoyu", name_ru:"Сёю", name_ja:"醤油", desc_en:"Soy sauce based, clear or rich", desc_it:"Base di salsa di soia", desc_ru:"Соевый соус", desc_ja:"醤油ベースのあっさり〜こってり", emoji:"🍜", link:"https://www.afuri.com/" },
-    { id: "shio", name_en:"Shio", name_it:"Shio", name_ru:"Сио", name_ja:"塩", desc_en:"Salt based, light & elegant", desc_it:"Base di sale", desc_ru:"Соляной", desc_ja:"あっさり塩味", emoji:"🥣", link:"https://www.ginza-hachigo.com/" },
-    { id: "miso", name_en:"Miso", name_it:"Miso", name_ru:"Мисо", name_ja:"味噌", desc_en:"Rich miso & vegetables", desc_it:"Pasta di soia", desc_ru:"Мисо", desc_ja:"味噌コク旨", emoji:"🍲", link:"https://www.sumire-ramen.com/" },
-    { id: "tonkotsu", name_en:"Tonkotsu", name_it:"Tonkotsu", name_ru:"Тонкоцу", name_ja:"とんこつ", desc_en:"Pork bone creamy broth", desc_it:"Brodo di maiale", desc_ru:"Свиной костный", desc_ja:"豚骨白湯", emoji:"🐷", link:"https://www.ichiran.com/" },
-    { id: "tammen", name_en:"Tammen", name_it:"Tammen", name_ru:"Таммэн", name_ja:"タンメン", desc_en:"Stir-fried veggies & salt broth", desc_it:"Verdure saltate", desc_ru:"Жареные овощи", desc_ja:"野菜炒めあんかけ", emoji:"🥬", link:"https://www.saizeriya.co.jp/" },
-    { id: "tantantan", name_en:"Tantanmen", name_it:"Tantanmen", name_ru:"Данданьмянь", name_ja:"担々麺", desc_en:"Spicy sesame & chili", desc_it:"Piccante sesamo", desc_ru:"Острая кунжутная", desc_ja:"胡麻辛味", emoji:"🌶️", link:"https://www.nakiryu.com/" },
-    { id: "tsukemen", name_en:"Tsukemen", name_it:"Tsukemen", name_ru:"Цукэмэн", name_ja:"つけ麺", desc_en:"Dip thick noodles into rich broth", desc_it:"Pasta da intingere", desc_ru:"Макание в бульон", desc_ja:"濃厚魚介つけ麺", emoji:"🥢", link:"https://www.tomita-ramen.com/" },
-    { id: "hiyashi", name_en:"Hiyashi Chuka", name_it:"Hiyashi Chuka", name_ru:"Хияси тюка", name_ja:"冷やし中華", desc_en:"Cold noodles & tangy soy", desc_it:"Freddo estivo", desc_ru:"Холодная лапша", desc_ja:"冷やし中華甘酢", emoji:"🍝", link:"https://www.momofuku.com/" },
-    { id: "jiro", name_en:"Jiro-kei", name_it:"Jiro style", name_ru:"Дзиро-кэй", name_ja:"二郎系", desc_en:"Heavy garlic, backfat & mountains of veg", desc_it:"Aglio, grasso, verdure", desc_ru:"Чеснок, жир, овощи", desc_ja:"ガーリック背脂もやし", emoji:"🧄", link:"https://www.ramen-jiro.com/" },
-    { id: "iekei", name_en:"Ie-kei", name_it:"Ie-kei", name_ru:"Иэ-кэй", name_ja:"家系", desc_en:"Tonkotsu-shoyu with nori & spinach", desc_it:"Tonkotsu shoyu", desc_ru:"Тонкоцу-сёю", desc_ja:"豚骨醤油＋海苔ほうれん草", emoji:"🍥", link:"https://www.yoshimuraya.com/" }
+    { id: "shoyu", name_en:"Shoyu", name_ja:"醤油", emoji:"🍜", link:"https://www.afuri.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Shoyu+Ramen",
+      desc_short_en:"Soy sauce based, clear or rich", desc_short_ja:"醤油ベースのあっさり〜こってり",
+      desc_long_en:"The most common ramen. Originated in Tokyo. Soy sauce gives a tangy, savory depth. Toppings: chashu, menma, nori, green onion. Tips: Try with a hint of yuzu for freshness. Famous shops: Afuri (Tokyo), Ippudo (global).",
+      desc_long_ja:"最も一般的なラーメン。東京発祥。醤油のキレと旨味。チャーシュー、メンマ、海苔、ねぎが定番。ゆず風味もおすすめ。有名店：AFURI、一風堂。" },
+    { id: "shio", name_en:"Shio", name_ja:"塩", emoji:"🥣", link:"https://www.ginza-hachigo.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Shio+Ramen",
+      desc_short_en:"Salt based, light & elegant", desc_short_ja:"あっさり塩味",
+      desc_long_en:"Delicate, often paired with chicken or seafood broth. Popular in Hakodate. Let the quality of salt shine. Tips: Add a squeeze of lemon. Famous: Ginza Hachigo (Tokyo), Ramen Santouka (Hokkaido).",
+      desc_long_ja:"繊細な味わい。鶏ガラや魚介と相性良し。函館が発祥。レモンを絞ると爽やか。銀座八五、山頭火が有名。" },
+    { id: "miso", name_en:"Miso", name_ja:"味噌", emoji:"🍲", link:"https://www.sumire-ramen.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Miso+Ramen",
+      desc_short_en:"Rich miso & vegetables", desc_short_ja:"味噌コク旨",
+      desc_long_en:"Hokkaido specialty, hearty and savory. Often includes corn, butter, and stir-fried veggies. Tips: Spicy miso variation is common. Famous: Sumire (Sapporo), Ramen Jiro (inspired).",
+      desc_long_ja:"北海道発祥。コーン、バター、炒め野菜が合う。辛味噌も人気。すみれ、二郎インスパイア。" },
+    { id: "tonkotsu", name_en:"Tonkotsu", name_ja:"とんこつ", emoji:"🐷", link:"https://www.ichiran.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Tonkotsu+Ramen",
+      desc_short_en:"Pork bone creamy broth", desc_short_ja:"豚骨白湯",
+      desc_long_en:"From Kyushu, especially Hakata. Rich, milky, and fatty. Thin straight noodles. Toppings: red ginger, garlic, sesame. Tips: Add 'kaedama' (extra noodles). Famous: Ichiran, Ippudo, Hakata Ikkousha.",
+      desc_long_ja:"九州・博多発祥。白濁濃厚。極細ストレート麺。紅生姜、にんにく。替え玉文化。一蘭、一風堂、博多一幸舎。" },
+    { id: "tammen", name_en:"Tammen", name_ja:"タンメン", emoji:"🥬", link:"https://www.saizeriya.co.jp/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Tammen+Ramen",
+      desc_short_en:"Stir-fried veggies & salt broth", desc_short_ja:"野菜炒めあんかけ",
+      desc_long_en:"Chinese-origin, popular in Yokohama. Loads of stir-fried cabbage, carrot, onion. Light salty broth. Healthy and filling. Tips: Add a dash of pepper.",
+      desc_long_ja:"横浜発祥。大量の野菜炒めを塩スープで。ヘルシーでボリューム満点。胡椒をかけて。" },
+    { id: "tantantan", name_en:"Tantanmen", name_ja:"担々麺", emoji:"🌶️", link:"https://www.nakiryu.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Tantanmen",
+      desc_short_en:"Spicy sesame & chili", desc_short_ja:"胡麻辛味",
+      desc_long_en:"Japanese take on Sichuan dan dan noodles. Creamy sesame, spicy chili oil, ground pork. Tips: Adjust spiciness. Famous: Nakiryu (Michelin-starred), Ryu's Shanghai.",
+      desc_long_ja:"四川の坦坦麺が日本風に。胡麻のコクと辣油の辛さ。ミシュラン獲得「鳴龍」が有名。" },
+    { id: "tsukemen", name_en:"Tsukemen", name_ja:"つけ麺", emoji:"🥢", link:"https://www.tomita-ramen.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Tsukemen",
+      desc_short_en:"Dip thick noodles into rich broth", desc_short_ja:"濃厚魚介つけ麺",
+      desc_long_en:"Noodles and soup separate. Thick, chewy noodles dipped into concentrated broth (often fish & pork). Tips: Add 'soup wari' (hot broth) after finishing noodles. Famous: Tomita (Chiba), Rokurinsha (Tokyo).",
+      desc_long_ja:"麺とスープが別々。濃厚な魚介豚骨スープに極太麺を浸す。スープ割りで楽しむ。富田食堂、六厘舎。" },
+    { id: "hiyashi", name_en:"Hiyashi Chuka", name_ja:"冷やし中華", emoji:"🍝", link:"https://www.momofuku.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Hiyashi+Chuka",
+      desc_short_en:"Cold noodles & tangy soy", desc_short_ja:"冷やし中華甘酢",
+      desc_long_en:"Summer classic. Chilled noodles with sweet-vinegar soy sauce, topped with shredded egg, ham, cucumber, tomato. Tips: Mix well before eating.",
+      desc_long_ja:"夏の風物詩。冷たい麺に甘酢醤油。錦糸卵、ハム、きゅうり、トマト。よく混ぜて。" },
+    { id: "jiro", name_en:"Jiro-kei", name_ja:"二郎系", emoji:"🧄", link:"https://www.ramen-jiro.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Jiro+kei+Ramen",
+      desc_short_en:"Heavy garlic, backfat & mountains of veg", desc_short_ja:"ガーリック背脂もやし",
+      desc_long_en:"Cult style from Ramen Jiro in Tokyo. Extreme portions: thick noodles, piles of bean sprouts and cabbage, backfat, garlic. Tips: Order 'yasai-mashi' (extra veg). Not for the faint-hearted.",
+      desc_long_ja:"東京・三田の二郎が起源。野菜マシマシ、背脂、ニンニク。ジャンクな濃厚醤油。ヤサイマシコールが必須。" },
+    { id: "iekei", name_en:"Ie-kei", name_ja:"家系", emoji:"🍥", link:"https://www.yoshimuraya.com/",
+      imagePlaceholder: "https://placehold.co/400x200?text=Ie+kei+Ramen",
+      desc_short_en:"Tonkotsu-shoyu with nori & spinach", desc_short_ja:"豚骨醤油＋海苔ほうれん草",
+      desc_long_en:"Yokohama style. Thick noodles, creamy tonkotsu-shoyu broth. Toppings: nori (3-5 sheets), spinach, chashu. You can adjust firmness, richness, and oil amount. Famous: Yoshimuraya.",
+      desc_long_ja:"横浜発祥。豚骨醤油に海苔とほうれん草。麺の硬さ・濃さ・油の量を選べる。吉村家が元祖。" }
   ];
 
-  // グループ定義 (idの配列)
+  // スープオプション（説明付き）
+  const soupOptions = [
+    { id:"clear",  name_en:"Clear broth", name_ja:"清湯", 
+      desc_en:"Light, translucent, often chicken or seafood based. Elegant and refreshing.", 
+      desc_ja:"透明度の高いあっさりスープ。鶏ガラや魚介がベース。上品な味わい。" },
+    { id:"creamy", name_en:"Creamy broth", name_ja:"白湯",
+      desc_en:"Rich, milky, emulsified fat (pork or chicken). Intense umami and body.",
+      desc_ja:"白濁した濃厚スープ。豚骨や鶏ガラを強火で乳化。コクと旨味が強い。" },
+    { id:"seafood",name_en:"Seafood blend", name_ja:"魚介",
+      desc_en:"Combination of fish/shellfish (niboshi, katsuobushi). Deep umami with a hint of the sea.",
+      desc_ja:"煮干し、鰹節などの魚介だし。潮の香りと深い旨味。" },
+    { id:"spicy",  name_en:"Spicy broth", name_ja:"辛口",
+      desc_en:"Chili oil, togarashi, or spicy miso. Fiery and warming. Adjustable heat.",
+      desc_ja:"辣油、唐辛子、辛味噌など。ピリッと刺激的。辛さ調整可能。" }
+  ];
+
+  // 麺オプション（説明付き）
+  const noodleOptions = [
+    { id:"thin_straight", name_en:"Thin straight", name_ja:"細ストレート",
+      desc_en:"Delicate, smooth. Pairs well with light broths like shio or shoyu.",
+      desc_ja:"繊細で滑らか。あっさり塩・醤油と好相性。" },
+    { id:"thick_wavy",    name_en:"Thick wavy", name_ja:"太ちぢれ",
+      desc_en:"Chewy, curly texture. Holds rich soup (miso, tonkotsu).",
+      desc_ja:"モチモチ、ちぢれ。濃厚スープ（味噌、豚骨）をよく拾う。" },
+    { id:"extra_thick",   name_en:"Extra thick (tsukemen)", name_ja:"極太",
+      desc_en:"Very thick, firm, almost udon-like. For tsukemen dipping.",
+      desc_ja:"極太でコシが強い。つけ麺専用。噛み応え抜群。" },
+    { id:"medium",        name_en:"Medium straight", name_ja:"中太ストレート",
+      desc_en:"Versatile, all-rounder. Good balance for any soup style.",
+      desc_ja:"万能選手。どんなスープにも程よく絡む。" }
+  ];
+
+  // トッピング（説明付き）
+  const toppingList = [
+    { id:"chashu", name_en:"Chashu", name_ja:"チャーシュー", 
+      desc_en:"Braised pork belly or loin. Tender, fatty, savory. The classic meat topping.",
+      desc_ja:"豚バラやロースの煮込み。とろける食感。定番の肉トッピング。" },
+    { id:"ajitama", name_en:"Ajitama egg", name_ja:"味玉",
+      desc_en:"Soft-boiled egg marinated in soy sauce. Creamy yolk, savory white.",
+      desc_ja:"半熟卵を醤油ダレに漬け込んだもの。とろっと黄身が絶品。" },
+    { id:"menma", name_en:"Menma", name_ja:"メンマ",
+      desc_en:"Fermented bamboo shoots. Crunchy texture, mild earthy flavor.",
+      desc_ja:"発酵させたタケノコ。コリコリ食感とほのかな風味。" },
+    { id:"nori", name_en:"Nori seaweed", name_ja:"海苔",
+      desc_en:"Roasted seaweed sheet. Adds umami, crispiness. Wrap noodles in it.",
+      desc_ja:"パリッとした風味と磯の香り。麺を巻いて食べるのも◎。" },
+    { id:"negi", name_en:"Green onion", name_ja:"ねぎ",
+      desc_en:"Freshly sliced scallions. Sharp, refreshing contrast to rich soup.",
+      desc_ja:"シャキッとした辛味と彩り。濃厚スープのアクセント。" },
+    { id:"butter", name_en:"Butter", name_ja:"バター",
+      desc_en:"Melts into hot soup, adds creaminess. Classic with miso ramen.",
+      desc_ja:"スープに溶かしてコク出し。味噌ラーメンと好相性。" },
+    { id:"corn", name_en:"Corn", name_ja:"コーン",
+      desc_en:"Sweet and crunchy. Often used in Hokkaido miso ramen.",
+      desc_ja:"甘みと食感。北海道の味噌ラーメンで人気。" },
+    { id:"garlic", name_en:"Garlic", name_ja:"にんにく",
+      desc_en:"Raw or fried. Pungent, spicy kick. Essential for tonkotsu and Jiro.",
+      desc_ja:"生または揚げにんにく。豚骨や二郎系に欠かせない。" }
+  ];
+
+  // グループ定義
   const groups = [
     { ids: ["shoyu", "shio", "miso", "tonkotsu"], titleKey: "group_left" },
     { ids: ["tammen", "tantantan", "hiyashi", "tsukemen"], titleKey: "group_center" },
     { ids: ["jiro", "iekei"], titleKey: "group_right" }
   ];
 
-  const soupOptions = [
-    { id:"clear",  name_en:"Clear broth", name_it:"Brodo chiaro", name_ru:"Прозрачный бульон", name_ja:"清湯" },
-    { id:"creamy", name_en:"Creamy broth", name_it:"Brodo denso", name_ru:"Наваристый", name_ja:"白湯" },
-    { id:"seafood",name_en:"Seafood blend", name_it:"Frutti di mare", name_ru:"Рыбный", name_ja:"魚介" },
-    { id:"spicy",  name_en:"Spicy broth", name_it:"Piccante", name_ru:"Острый", name_ja:"辛口" }
-  ];
-  const noodleOptions = [
-    { id:"thin_straight", name_en:"Thin straight", name_it:"Sottile dritta", name_ru:"Тонкая прямая", name_ja:"細ストレート" },
-    { id:"thick_wavy",    name_en:"Thick wavy", name_it:"Spessa ondulata", name_ru:"Толстая волнистая", name_ja:"太ちぢれ" },
-    { id:"extra_thick",   name_en:"Extra thick (tsukemen)", name_it:"Extra spessa", name_ru:"Экстра толстая", name_ja:"極太" },
-    { id:"medium",        name_en:"Medium straight", name_it:"Media dritta", name_ru:"Средняя прямая", name_ja:"中太ストレート" }
-  ];
-  const toppingList = [
-    { id:"chashu", name_en:"Chashu", name_it:"Chashu", name_ru:"Чашу", name_ja:"チャーシュー" },
-    { id:"ajitama", name_en:"Ajitama egg", name_it:"Uovo marinato", name_ru:"Яйцо", name_ja:"味玉" },
-    { id:"menma", name_en:"Menma", name_it:"Menma", name_ru:"Мэнма", name_ja:"メンマ" },
-    { id:"nori", name_en:"Nori seaweed", name_it:"Alga nori", name_ru:"Нори", name_ja:"海苔" },
-    { id:"negi", name_en:"Green onion", name_it:"Cipollotto", name_ru:"Лук", name_ja:"ねぎ" },
-    { id:"butter", name_en:"Butter", name_it:"Burro", name_ru:"Масло", name_ja:"バター" },
-    { id:"corn", name_en:"Corn", name_it:"Mais", name_ru:"Кукуруза", name_ja:"コーン" },
-    { id:"garlic", name_en:"Garlic", name_it:"Aglio", name_ru:"Чеснок", name_ja:"にんにく" }
-  ];
+  function t(key) { return translations[currentLang][key] || key; }
+  function getRamen(ramen) {
+    const lang = currentLang;
+    return {
+      name: ramen[`name_${lang}`] || ramen.name_en,
+      desc_short: ramen[`desc_short_${lang}`] || ramen.desc_short_en,
+      desc_long: ramen[`desc_long_${lang}`] || ramen.desc_long_en
+    };
+  }
+  function getOptionName(opt) { return opt[`name_${currentLang}`] || opt.name_en; }
+  function getOptionDesc(opt) { return opt[`desc_${currentLang}`] || opt.desc_en; }
 
-  function t(key) {
-    return translations[currentLang][key] || key;
-  }
-  function getRamenName(ramen) {
-    return ramen[`name_${currentLang}`] || ramen.name_en;
-  }
-  function getRamenDesc(ramen) {
-    return ramen[`desc_${currentLang}`] || ramen.desc_en;
-  }
-  function getOptionName(opt) {
-    return opt[`name_${currentLang}`] || opt.name_en;
-  }
-
-  // ホーム画面: スライド式グループ
+  // ホーム画面（スライド）
   function renderHome() {
     const mainEl = document.getElementById('appMain');
-    // グループHTML構築
     let groupsHtml = `<div class="groups-slider" id="groupsSlider">`;
-    groups.forEach((group, idx) => {
+    groups.forEach((group) => {
       const groupRamen = group.ids.map(id => ramenData.find(r => r.id === id)).filter(r => r);
-      groupsHtml += `
-        <div class="group" data-group-index="${idx}">
-          <div class="group-title">${t(group.titleKey)}</div>
-          <div class="ramen-grid-vertical">
-            ${groupRamen.map(ramen => `
-              <div class="ramen-card" data-ramen-id="${ramen.id}">
-                <div class="ramen-emoji">${ramen.emoji}</div>
-                <div class="ramen-name">${getRamenName(ramen)}</div>
-                <div class="ramen-desc">${getRamenDesc(ramen)}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
+      groupsHtml += `<div class="group"><div class="group-title">${t(group.titleKey)}</div><div class="ramen-grid-vertical">`;
+      groupRamen.forEach(ramen => {
+        const { name, desc_short } = getRamen(ramen);
+        groupsHtml += `
+          <div class="ramen-card" data-ramen-id="${ramen.id}">
+            <div class="ramen-emoji">${ramen.emoji}</div>
+            <div class="ramen-name">${name}</div>
+            <div class="ramen-desc">${desc_short}</div>
+          </div>`;
+      });
+      groupsHtml += `</div></div>`;
     });
     groupsHtml += `</div><div class="slider-indicators" id="sliderIndicators"></div>`;
     mainEl.innerHTML = groupsHtml;
-
-    // カードクリックイベント
     document.querySelectorAll('.ramen-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const id = card.dataset.ramenId;
-        if (id) showRamenDetail(id);
-      });
+      card.addEventListener('click', () => showRamenDetail(card.dataset.ramenId));
     });
-
-    // インジケーター作成 & スクロール連動
+    // インジケーター作成とスクロール連動
     const slider = document.getElementById('groupsSlider');
-    const indicatorsContainer = document.getElementById('sliderIndicators');
-    if (slider && indicatorsContainer) {
-      const groupCount = groups.length;
-      for (let i = 0; i < groupCount; i++) {
+    const indicators = document.getElementById('sliderIndicators');
+    if (slider && indicators) {
+      for (let i = 0; i < groups.length; i++) {
         const dot = document.createElement('div');
         dot.classList.add('indicator');
         dot.dataset.index = i;
-        dot.addEventListener('click', () => {
-          slider.scrollTo({ left: slider.clientWidth * i, behavior: 'smooth' });
-        });
-        indicatorsContainer.appendChild(dot);
+        dot.addEventListener('click', () => slider.scrollTo({ left: slider.clientWidth * i, behavior: 'smooth' }));
+        indicators.appendChild(dot);
       }
       const updateIndicators = () => {
-        const scrollPos = slider.scrollLeft;
-        const width = slider.clientWidth;
-        const activeIndex = Math.round(scrollPos / width);
-        document.querySelectorAll('.indicator').forEach((ind, idx) => {
-          if (idx === activeIndex) ind.classList.add('active');
-          else ind.classList.remove('active');
-        });
+        const idx = Math.round(slider.scrollLeft / slider.clientWidth);
+        document.querySelectorAll('.indicator').forEach((d, i) => d.classList.toggle('active', i === idx));
       };
       slider.addEventListener('scroll', updateIndicators);
-      window.addEventListener('resize', () => updateIndicators());
+      window.addEventListener('resize', updateIndicators);
       updateIndicators();
     }
   }
 
   function showRamenDetail(id) {
     currentRamenId = id;
-    selectedSoup = null;
-    selectedNoodle = null;
-    selectedToppings = [];
-    showingTopping = false;
-    navStack = ['detail'];
+    selectedSoup = null; selectedNoodle = null; selectedToppings = []; showingTopping = false;
     renderDetail();
   }
 
   function renderDetail() {
     const ramen = ramenData.find(r => r.id === currentRamenId);
     if (!ramen) return;
+    const { name, desc_short, desc_long } = getRamen(ramen);
     const mainEl = document.getElementById('appMain');
     mainEl.innerHTML = `
       <div class="detail-view">
-        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-          <span style="font-size:3rem;">${ramen.emoji}</span>
-          <h2>${getRamenName(ramen)}</h2>
-        </div>
-        <p>${getRamenDesc(ramen)}</p>
+        <div class="ramen-image"><img src="${ramen.imagePlaceholder}" alt="${name}" onerror="this.src='https://placehold.co/400x200?text=No+Image'"></div>
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;"><span style="font-size:3rem;">${ramen.emoji}</span><h2>${name}</h2></div>
+        <p><strong>${desc_short}</strong></p>
+        <div class="long-description">📖 ${desc_long}</div>
         <a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a>
         
-        <div class="options-section">
-          <h3>${t('select_soup')}</h3>
-          <div class="option-buttons" id="soupButtons">
-            ${soupOptions.map(opt => `<button class="option-btn ${selectedSoup === opt.id ? 'selected' : ''}" data-soup="${opt.id}">${getOptionName(opt)}</button>`).join('')}
-          </div>
-        </div>
-        <div class="options-section">
-          <h3>${t('select_noodle')}</h3>
-          <div class="option-buttons" id="noodleButtons">
-            ${noodleOptions.map(opt => `<button class="option-btn ${selectedNoodle === opt.id ? 'selected' : ''}" data-noodle="${opt.id}">${getOptionName(opt)}</button>`).join('')}
-          </div>
-        </div>
-        <div class="nav-buttons">
-          <button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button>
-          <button class="btn-like" id="nextToppingBtn">${t('next_step')}</button>
-        </div>
+        <div class="options-section"><h3>${t('select_soup')}</h3><div class="option-buttons" id="soupButtons"></div><div class="option-desc" style="margin-top:0.5rem;">💡 ${t('soup_lesson')}</div></div>
+        <div class="options-section"><h3>${t('select_noodle')}</h3><div class="option-buttons" id="noodleButtons"></div><div class="option-desc">💡 ${t('noodle_lesson')}</div></div>
+        <div class="nav-buttons"><button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button><button class="btn-like" id="nextToppingBtn">${t('next_step')}</button></div>
       </div>
     `;
-    document.querySelectorAll('[data-soup]').forEach(btn => {
-      btn.addEventListener('click', (e) => { selectedSoup = btn.dataset.soup; renderDetail(); });
+    // スープボタン
+    const soupContainer = document.getElementById('soupButtons');
+    soupOptions.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = `option-btn ${selectedSoup === opt.id ? 'selected' : ''}`;
+      btn.innerText = getOptionName(opt);
+      btn.dataset.soup = opt.id;
+      const descSpan = document.createElement('span');
+      descSpan.className = 'option-desc';
+      descSpan.innerText = getOptionDesc(opt);
+      btn.appendChild(descSpan);
+      btn.addEventListener('click', () => { selectedSoup = opt.id; renderDetail(); });
+      soupContainer.appendChild(btn);
     });
-    document.querySelectorAll('[data-noodle]').forEach(btn => {
-      btn.addEventListener('click', (e) => { selectedNoodle = btn.dataset.noodle; renderDetail(); });
+    // 麺ボタン
+    const noodleContainer = document.getElementById('noodleButtons');
+    noodleOptions.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = `option-btn ${selectedNoodle === opt.id ? 'selected' : ''}`;
+      btn.innerText = getOptionName(opt);
+      btn.dataset.noodle = opt.id;
+      const descSpan = document.createElement('span');
+      descSpan.className = 'option-desc';
+      descSpan.innerText = getOptionDesc(opt);
+      btn.appendChild(descSpan);
+      btn.addEventListener('click', () => { selectedNoodle = opt.id; renderDetail(); });
+      noodleContainer.appendChild(btn);
     });
     document.getElementById('backHomeBtn')?.addEventListener('click', () => goHome());
     document.getElementById('nextToppingBtn')?.addEventListener('click', () => {
       if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; }
       showingTopping = true;
-      navStack.push({type:'ramen', ramenId:currentRamenId, selectedSoup, selectedNoodle});
       renderTopping();
     });
   }
@@ -557,97 +667,50 @@
     const mainEl = document.getElementById('appMain');
     mainEl.innerHTML = `
       <div class="topping-view">
-        <h2>${getRamenName(ramen)} - ${t('toppings_title')}</h2>
-        <div class="topping-list">
-          ${toppingList.map(top => `
-            <label class="topping-item">
-              <input type="checkbox" value="${top.id}" ${selectedToppings.includes(top.id) ? 'checked' : ''}>
-              ${getOptionName(top)}
-            </label>
-          `).join('')}
-        </div>
-        <div class="selected-summary">
-          <strong>${t('selected')}</strong><br>
-          🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>
-          🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>
-          🥗 ${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}
-        </div>
-        <div class="nav-buttons">
-          <button class="btn-like" id="backPrevBtn">${t('back_previous')}</button>
-          <button class="btn-like" id="completeBtn">${t('complete_order')}</button>
-        </div>
+        <h2>${getRamen(ramen).name} - ${t('toppings_title')}</h2>
+        <div class="topping-list" id="toppingList"></div>
+        <div class="selected-summary"><strong>${t('selected')}</strong><br>🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>🥗 ${t('toppings')}: <span id="selectedToppingsList">${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}</span></div>
+        <div class="nav-buttons"><button class="btn-like" id="backPrevBtn">${t('back_previous')}</button><button class="btn-like" id="completeBtn">${t('complete_order')}</button></div>
+        <div class="option-desc" style="margin-top:1rem;">💡 ${t('topping_lesson')}</div>
       </div>
     `;
-    const checkboxes = document.querySelectorAll('.topping-item input');
-    checkboxes.forEach(cb => {
+    const container = document.getElementById('toppingList');
+    toppingList.forEach(top => {
+      const label = document.createElement('label');
+      label.className = 'topping-item';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = top.id;
+      cb.checked = selectedToppings.includes(top.id);
       cb.addEventListener('change', (e) => {
-        if (cb.checked) selectedToppings.push(cb.value);
-        else selectedToppings = selectedToppings.filter(v => v !== cb.value);
+        if (cb.checked) selectedToppings.push(top.id);
+        else selectedToppings = selectedToppings.filter(v => v !== top.id);
+        document.getElementById('selectedToppingsList').innerText = selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ');
       });
+      const span = document.createElement('span');
+      span.innerText = getOptionName(top);
+      const info = document.createElement('span');
+      info.className = 'info-icon';
+      info.innerText = 'ⓘ';
+      info.addEventListener('click', (e) => { e.stopPropagation(); alert(getOptionDesc(top)); });
+      label.append(cb, span, info);
+      container.appendChild(label);
     });
-    document.getElementById('backPrevBtn')?.addEventListener('click', () => { backToPrev(); });
+    document.getElementById('backPrevBtn')?.addEventListener('click', () => { showingTopping = false; renderDetail(); });
     document.getElementById('completeBtn')?.addEventListener('click', () => {
       alert(`✅ ${t('selected')}\n${t('soup')}: ${getOptionName(soupOptions.find(s=>s.id===selectedSoup))}\n${t('noodle')}: ${getOptionName(noodleOptions.find(n=>n.id===selectedNoodle))}\n${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ')}`);
     });
   }
 
-  function goHome() {
-    navStack = ['home'];
-    currentRamenId = null;
-    showingTopping = false;
-    selectedSoup = null;
-    selectedNoodle = null;
-    selectedToppings = [];
-    renderHome();
-  }
-
-  function backToPrev() {
-    if (showingTopping) {
-      showingTopping = false;
-      renderDetail();
-    } else if (currentRamenId) {
-      goHome();
-    } else {
-      goHome();
-    }
-  }
-
-  function setTheme(theme) {
-    currentTheme = theme;
-    document.body.classList.remove('dark', 'light');
-    document.body.classList.add(theme);
-    const btn = document.getElementById('themeToggle');
-    if (btn) btn.innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (key && translations[lang][key]) el.innerText = translations[lang][key];
-    });
-    if (!currentRamenId && !showingTopping) renderHome();
-    else if (currentRamenId && !showingTopping) renderDetail();
-    else if (showingTopping) renderTopping();
-  }
+  function goHome() { currentRamenId = null; showingTopping = false; renderHome(); }
+  function setTheme(theme) { currentTheme = theme; document.body.classList.remove('dark','light'); document.body.classList.add(theme); document.getElementById('themeToggle').innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark'; }
+  function setLanguage(lang) { currentLang = lang; document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (translations[lang][key]) el.innerText = translations[lang][key]; }); if (!currentRamenId) renderHome(); else if (showingTopping) renderTopping(); else renderDetail(); }
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTheme('dark');
-    setLanguage('en');
-    renderHome();
-
-    document.querySelectorAll('[data-lang]').forEach(btn => {
-      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-    });
-    document.getElementById('themeToggle')?.addEventListener('click', () => {
-      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(reg => {
-        console.log('SW registered', reg);
-      }).catch(err => console.log('SW failed', err));
-    }
+    setTheme('dark'); setLanguage('en'); renderHome();
+    document.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+    document.getElementById('themeToggle')?.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark'));
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(err => console.log('SW failed', err));
   });
 </script>
 </body>
