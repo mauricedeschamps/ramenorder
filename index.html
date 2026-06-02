@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ramen Catalog</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e1a1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+      min-height: 100vh;
+    }
+
+    /* ダークモード（デフォルト） */
+    body.dark {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    body.light {
+      background-color: #fef7e8;
+      color: #1e1a1a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ヘッダー */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid currentColor;
+    }
+    h1 {
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+    }
+    .controls {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    button, .btn-like {
+      background: #3a3a3a;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: 500;
+      color: white;
+      font-size: 0.9rem;
+    }
+    body.light button, body.light .btn-like {
+      background: #e0d6c8;
+      color: #1e1a1a;
+    }
+    button.active {
+      background: #c49a6c;
+      color: white;
+    }
+    .lang-btn-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    /* メインカードグリッド */
+    .ramen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .ramen-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      text-align: center;
+    }
+    body.light .ramen-card {
+      background: #fff8f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    body.dark .ramen-card {
+      background: #1f1b1b;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .ramen-card:hover {
+      transform: scale(1.02);
+    }
+    .ramen-emoji {
+      font-size: 4rem;
+      margin: 0.5rem 0;
+    }
+    .ramen-name {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .ramen-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* 詳細ビュー */
+    .detail-view, .topping-view {
+      background: rgba(0,0,0,0.2);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    body.light .detail-view, body.light .topping-view {
+      background: #fff0e0;
+    }
+    .options-section {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border-left: 4px solid #c49a6c;
+    }
+    .option-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+    .option-btn {
+      background: #2c2c2c;
+      border: 1px solid #5a5a5a;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      cursor: pointer;
+    }
+    body.light .option-btn {
+      background: #e8e0d0;
+      border-color: #c0b090;
+    }
+    .option-btn.selected {
+      background: #c49a6c;
+      border-color: #c49a6c;
+      color: white;
+    }
+    .topping-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .topping-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+    }
+    body.light .topping-item {
+      background: #e8e0d0;
+    }
+    .link-button {
+      display: inline-block;
+      margin: 1rem 0;
+      padding: 0.6rem 1.2rem;
+      background: #2c6e2c;
+      color: white;
+      border-radius: 2rem;
+      text-decoration: none;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0 1rem;
+      flex-wrap: wrap;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      text-align: center;
+      border-top: 1px solid currentColor;
+      font-size: 0.85rem;
+    }
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .selected-summary {
+      background: rgba(0,0,0,0.3);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 640px) {
+      body { padding: 0.8rem; }
+      .ramen-name { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body class="dark">
+<div class="container">
+  <header>
+    <h1 data-i18n="app_title">🍜 Ramen Compass</h1>
+    <div class="controls">
+      <div class="lang-btn-group">
+        <button data-lang="en">🇬🇧 EN</button>
+        <button data-lang="it">🇮🇹 IT</button>
+        <button data-lang="ru">🇷🇺 RU</button>
+        <button data-lang="ja">🇯🇵 日</button>
+      </div>
+      <button id="themeToggle">🌙 Dark</button>
+    </div>
+  </header>
+
+  <main id="appMain">
+    <!-- 動的コンテンツ -->
+  </main>
+
+  <footer>
+    <p data-i18n="contact_us">Contact us</p>
+    <p><a href="mailto:mementomorikatsu@gmail.com">mementomorikatsu@gmail.com</a></p>
+  </footer>
+</div>
+
+<script>
+  // ---------- 多言語辞書 ----------
+  const translations = {
+    en: {
+      app_title: "🍜 Ramen Compass",
+      back_to_home: "🏠 Home",
+      back_previous: "◀ Back",
+      next_step: "Next → Toppings",
+      select_soup: "Soup Style",
+      select_noodle: "Noodle Type",
+      toppings_title: "Choose Toppings",
+      complete_order: "✨ Complete selection",
+      selected: "Your choices:",
+      official_link: "🌟 Official website example",
+      contact_us: "Contact us",
+      soup: "Soup",
+      noodle: "Noodle",
+      toppings: "Toppings",
+      choose_ramen_first: "Select a ramen style from the list"
+    },
+    it: {
+      app_title: "🍜 Bussola Ramen",
+      back_to_home: "🏠 Home",
+      back_previous: "◀ Indietro",
+      next_step: "Avanti → Condimenti",
+      select_soup: "Brodo",
+      select_noodle: "Tipo di Pasta",
+      toppings_title: "Scegli i Topping",
+      complete_order: "✨ Completa scelta",
+      selected: "Le tue scelte:",
+      official_link: "🌟 Sito ufficiale di esempio",
+      contact_us: "Contattaci",
+      soup: "Brodo",
+      noodle: "Pasta",
+      toppings: "Topping",
+      choose_ramen_first: "Seleziona un tipo di ramen dalla lista"
+    },
+    ru: {
+      app_title: "🍜 Рамен гид",
+      back_to_home: "🏠 Главная",
+      back_previous: "◀ Назад",
+      next_step: "Далее → Топпинги",
+      select_soup: "Бульон",
+      select_noodle: "Тип лапши",
+      toppings_title: "Выберите топпинги",
+      complete_order: "✨ Завершить",
+      selected: "Ваш выбор:",
+      official_link: "🌟 Пример офиц. сайта",
+      contact_us: "Связаться с нами",
+      soup: "Бульон",
+      noodle: "Лапша",
+      toppings: "Топпинги",
+      choose_ramen_first: "Выберите вид рамена из списка"
+    },
+    ja: {
+      app_title: "🍜 ラーメンカタログ",
+      back_to_home: "🏠 ホーム",
+      back_previous: "◀ 戻る",
+      next_step: "次へ → トッピング",
+      select_soup: "スープの種類",
+      select_noodle: "麺の種類",
+      toppings_title: "トッピングを選ぶ",
+      complete_order: "✨ 選択完了",
+      selected: "あなたの選択:",
+      official_link: "🌟 公式サイト例",
+      contact_us: "お問い合わせ",
+      soup: "スープ",
+      noodle: "麺",
+      toppings: "トッピング",
+      choose_ramen_first: "一覧からラーメンを選んでください"
+    }
+  };
+
+  let currentLang = 'en';
+  let currentTheme = 'dark';   // dark default
+  // アプリ状態
+  let navStack = [];            // 履歴: 'home' または {type:'ramen', ramenId, selectedSoup, selectedNoodle}
+  let currentRamenId = null;
+  let selectedSoup = null;
+  let selectedNoodle = null;
+  let selectedToppings = [];    // topping id の配列
+  let showingTopping = false;
+
+  // ----- データ定義 -----
+  const ramenData = [
+    { id: "shoyu", name_en:"Shoyu", name_it:"Shoyu", name_ru:"Сёю", name_ja:"醤油", desc_en:"Soy sauce based, clear or rich", desc_it:"Base di salsa di soia", desc_ru:"Соевый соус", desc_ja:"醤油ベースのあっさり〜こってり", emoji:"🍜", link:"https://www.afuri.com/" },
+    { id: "shio", name_en:"Shio", name_it:"Shio", name_ru:"Сио", name_ja:"塩", desc_en:"Salt based, light & elegant", desc_it:"Base di sale", desc_ru:"Соляной", desc_ja:"あっさり塩味", emoji:"🥣", link:"https://www.ginza-hachigo.com/" },
+    { id: "miso", name_en:"Miso", name_it:"Miso", name_ru:"Мисо", name_ja:"味噌", desc_en:"Rich miso & vegetables", desc_it:"Pasta di soia", desc_ru:"Мисо", desc_ja:"味噌コク旨", emoji:"🍲", link:"https://www.sumire-ramen.com/" },
+    { id: "tonkotsu", name_en:"Tonkotsu", name_it:"Tonkotsu", name_ru:"Тонкоцу", name_ja:"とんこつ", desc_en:"Pork bone creamy broth", desc_it:"Brodo di maiale", desc_ru:"Свиной костный", desc_ja:"豚骨白湯", emoji:"🐷", link:"https://www.ichiran.com/" },
+    { id: "tammen", name_en:"Tammen", name_it:"Tammen", name_ru:"Таммэн", name_ja:"タンメン", desc_en:"Stir-fried veggies & salt broth", desc_it:"Verdure saltate", desc_ru:"Жареные овощи", desc_ja:"野菜炒めあんかけ", emoji:"🥬", link:"https://www.saizeriya.co.jp/" },
+    { id: "tantantan", name_en:"Tantanmen", name_it:"Tantanmen", name_ru:"Данданьмянь", name_ja:"担々麺", desc_en:"Spicy sesame & chili", desc_it:"Piccante sesamo", desc_ru:"Острая кунжутная", desc_ja:"胡麻辛味", emoji:"🌶️", link:"https://www.nakiryu.com/" },
+    { id: "tsukemen", name_en:"Tsukemen", name_it:"Tsukemen", name_ru:"Цукэмэн", name_ja:"つけ麺", desc_en:"Dip thick noodles into rich broth", desc_it:"Pasta da intingere", desc_ru:"Макание в бульон", desc_ja:"濃厚魚介つけ麺", emoji:"🥢", link:"https://www.tomita-ramen.com/" },
+    { id: "hiyashi", name_en:"Hiyashi Chuka", name_it:"Hiyashi Chuka", name_ru:"Хияси тюка", name_ja:"冷やし中華", desc_en:"Cold noodles & tangy soy", desc_it:"Freddo estivo", desc_ru:"Холодная лапша", desc_ja:"冷やし中華甘酢", emoji:"🍝", link:"https://www.momofuku.com/" },
+    { id: "jiro", name_en:"Jiro-kei", name_it:"Jiro style", name_ru:"Дзиро-кэй", name_ja:"二郎系", desc_en:"Heavy garlic, backfat & mountains of veg", desc_it:"Aglio, grasso, verdure", desc_ru:"Чеснок, жир, овощи", desc_ja:"ガーリック背脂もやし", emoji:"🧄", link:"https://www.ramen-jiro.com/" },
+    { id: "iekei", name_en:"Ie-kei", name_it:"Ie-kei", name_ru:"Иэ-кэй", name_ja:"家系", desc_en:"Tonkotsu-shoyu with nori & spinach", desc_it:"Tonkotsu shoyu", desc_ru:"Тонкоцу-сёю", desc_ja:"豚骨醤油＋海苔ほうれん草", emoji:"🍥", link:"https://www.yoshimuraya.com/" }
+  ];
+
+  // スープバリエーション (カテゴリ共通＋個別調整可、簡易的に全ラーメンで同じ選択肢)
+  const soupOptions = [
+    { id:"clear",  name_en:"Clear broth", name_it:"Brodo chiaro", name_ru:"Прозрачный бульон", name_ja:"清湯" },
+    { id:"creamy", name_en:"Creamy broth", name_it:"Brodo denso", name_ru:"Наваристый", name_ja:"白湯" },
+    { id:"seafood",name_en:"Seafood blend", name_it:"Frutti di mare", name_ru:"Рыбный", name_ja:"魚介" },
+    { id:"spicy",  name_en:"Spicy broth", name_it:"Piccante", name_ru:"Острый", name_ja:"辛口" }
+  ];
+  const noodleOptions = [
+    { id:"thin_straight", name_en:"Thin straight", name_it:"Sottile dritta", name_ru:"Тонкая прямая", name_ja:"細ストレート" },
+    { id:"thick_wavy",    name_en:"Thick wavy", name_it:"Spessa ondulata", name_ru:"Толстая волнистая", name_ja:"太ちぢれ" },
+    { id:"extra_thick",   name_en:"Extra thick (tsukemen)", name_it:"Extra spessa", name_ru:"Экстра толстая", name_ja:"極太" },
+    { id:"medium",        name_en:"Medium straight", name_it:"Media dritta", name_ru:"Средняя прямая", name_ja:"中太ストレート" }
+  ];
+  // トッピング（共通＋固有は表示時にラーメンIDでフィルタ可能だがここでは全表示で十分）
+  const toppingList = [
+    { id:"chashu", name_en:"Chashu", name_it:"Chashu", name_ru:"Чашу", name_ja:"チャーシュー" },
+    { id:"ajitama", name_en:"Ajitama egg", name_it:"Uovo marinato", name_ru:"Яйцо", name_ja:"味玉" },
+    { id:"menma", name_en:"Menma", name_it:"Menma", name_ru:"Мэнма", name_ja:"メンマ" },
+    { id:"nori", name_en:"Nori seaweed", name_it:"Alga nori", name_ru:"Нори", name_ja:"海苔" },
+    { id:"negi", name_en:"Green onion", name_it:"Cipollotto", name_ru:"Лук", name_ja:"ねぎ" },
+    { id:"butter", name_en:"Butter", name_it:"Burro", name_ru:"Масло", name_ja:"バター" },
+    { id:"corn", name_en:"Corn", name_it:"Mais", name_ru:"Кукуруза", name_ja:"コーン" },
+    { id:"garlic", name_en:"Garlic", name_it:"Aglio", name_ru:"Чеснок", name_ja:"にんにく" }
+  ];
+
+  // ヘルパー: 多言語テキスト取得
+  function t(key) {
+    return translations[currentLang][key] || key;
+  }
+
+  function getRamenName(ramen) {
+    return ramen[`name_${currentLang}`] || ramen.name_en;
+  }
+  function getRamenDesc(ramen) {
+    return ramen[`desc_${currentLang}`] || ramen.desc_en;
+  }
+  function getOptionName(opt) {
+    return opt[`name_${currentLang}`] || opt.name_en;
+  }
+
+  // レンダリングメイン
+  function render() {
+    const mainEl = document.getElementById('appMain');
+    if (!navStack.length || navStack[0] === 'home') {
+      // ホーム画面
+      mainEl.innerHTML = `
+        <div class="ramen-grid">
+          ${ramenData.map(ramen => `
+            <div class="ramen-card" data-ramen-id="${ramen.id}">
+              <div class="ramen-emoji">${ramen.emoji}</div>
+              <div class="ramen-name">${getRamenName(ramen)}</div>
+              <div class="ramen-desc">${getRamenDesc(ramen)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      document.querySelectorAll('.ramen-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const id = card.dataset.ramenId;
+          showRamenDetail(id);
+        });
+      });
+    } 
+    else if (showingTopping) {
+      // トッピング画面
+      const ramen = ramenData.find(r => r.id === currentRamenId);
+      if (!ramen) return;
+      mainEl.innerHTML = `
+        <div class="topping-view">
+          <h2>${getRamenName(ramen)} - ${t('toppings_title')}</h2>
+          <div class="topping-list">
+            ${toppingList.map(top => `
+              <label class="topping-item">
+                <input type="checkbox" value="${top.id}" ${selectedToppings.includes(top.id) ? 'checked' : ''}>
+                ${getOptionName(top)}
+              </label>
+            `).join('')}
+          </div>
+          <div class="selected-summary">
+            <strong>${t('selected')}</strong><br>
+            🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>
+            🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>
+            🥗 ${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}
+          </div>
+          <div class="nav-buttons">
+            <button class="btn-like" id="backPrevBtn">${t('back_previous')}</button>
+            <button class="btn-like" id="completeBtn">${t('complete_order')}</button>
+          </div>
+        </div>
+      `;
+      const checkboxes = document.querySelectorAll('.topping-item input');
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          if (cb.checked) selectedToppings.push(cb.value);
+          else selectedToppings = selectedToppings.filter(v => v !== cb.value);
+        });
+      });
+      document.getElementById('backPrevBtn')?.addEventListener('click', () => { backToPrev(); });
+      document.getElementById('completeBtn')?.addEventListener('click', () => {
+        alert(`✅ ${t('selected')}\n${t('soup')}: ${getOptionName(soupOptions.find(s=>s.id===selectedSoup))}\n${t('noodle')}: ${getOptionName(noodleOptions.find(n=>n.id===selectedNoodle))}\n${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ')}`);
+      });
+    } 
+    else if (currentRamenId) {
+      // 詳細画面 (スープ/麺選択)
+      const ramen = ramenData.find(r => r.id === currentRamenId);
+      if (!ramen) return;
+      mainEl.innerHTML = `
+        <div class="detail-view">
+          <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+            <span style="font-size:3rem;">${ramen.emoji}</span>
+            <h2>${getRamenName(ramen)}</h2>
+          </div>
+          <p>${getRamenDesc(ramen)}</p>
+          <a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a>
+          
+          <div class="options-section">
+            <h3>${t('select_soup')}</h3>
+            <div class="option-buttons" id="soupButtons">
+              ${soupOptions.map(opt => `<button class="option-btn ${selectedSoup === opt.id ? 'selected' : ''}" data-soup="${opt.id}">${getOptionName(opt)}</button>`).join('')}
+            </div>
+          </div>
+          <div class="options-section">
+            <h3>${t('select_noodle')}</h3>
+            <div class="option-buttons" id="noodleButtons">
+              ${noodleOptions.map(opt => `<button class="option-btn ${selectedNoodle === opt.id ? 'selected' : ''}" data-noodle="${opt.id}">${getOptionName(opt)}</button>`).join('')}
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button>
+            <button class="btn-like" id="nextToppingBtn">${t('next_step')}</button>
+          </div>
+        </div>
+      `;
+      // イベント
+      document.querySelectorAll('[data-soup]').forEach(btn => {
+        btn.addEventListener('click', (e) => { selectedSoup = btn.dataset.soup; render(); });
+      });
+      document.querySelectorAll('[data-noodle]').forEach(btn => {
+        btn.addEventListener('click', (e) => { selectedNoodle = btn.dataset.noodle; render(); });
+      });
+      document.getElementById('backHomeBtn')?.addEventListener('click', () => { goHome(); });
+      document.getElementById('nextToppingBtn')?.addEventListener('click', () => {
+        if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; }
+        showingTopping = true;
+        navStack.push({type:'ramen', ramenId:currentRamenId, selectedSoup, selectedNoodle});
+        render();
+      });
+    }
+  }
+
+  function showRamenDetail(id) {
+    currentRamenId = id;
+    selectedSoup = null;
+    selectedNoodle = null;
+    selectedToppings = [];
+    showingTopping = false;
+    navStack = ['detail']; // 簡易履歴
+    render();
+  }
+
+  function goHome() {
+    navStack = ['home'];
+    currentRamenId = null;
+    showingTopping = false;
+    selectedSoup = null;
+    selectedNoodle = null;
+    selectedToppings = [];
+    render();
+  }
+
+  function backToPrev() {
+    if (showingTopping) {
+      showingTopping = false;
+      navStack.pop();
+      render();
+    } else if (currentRamenId) {
+      goHome();
+    } else {
+      goHome();
+    }
+  }
+
+  // テーマ切替
+  function setTheme(theme) {
+    currentTheme = theme;
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  // 言語切替
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (key && translations[lang][key]) el.innerText = translations[lang][key];
+    });
+    render();
+  }
+
+  // 初期化 & SW登録
+  window.addEventListener('DOMContentLoaded', () => {
+    setTheme('dark');
+    setLanguage('en');
+    goHome();
+
+    // 言語ボタン
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    // サービスワーカー登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        console.log('SW registered', reg);
+      }).catch(err => console.log('SW failed', err));
+    }
+  });
+</script>
+</body>
+</html>
