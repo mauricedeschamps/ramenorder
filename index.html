@@ -82,12 +82,36 @@
       gap: 0.4rem;
     }
 
-    /* メインカードグリッド */
-    .ramen-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+    /* ===== スライド式グループ ===== */
+    .groups-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox でスクロールバー非表示 */
+      margin: 1rem 0 2rem;
+      border-radius: 1rem;
+    }
+    .groups-slider::-webkit-scrollbar {
+      display: none;
+    }
+    .group {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      padding: 0 0.5rem;
+    }
+    .group-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+      border-left: 4px solid #c49a6c;
+    }
+    .ramen-grid-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
     .ramen-card {
       background: rgba(255,255,255,0.05);
@@ -109,20 +133,20 @@
       transform: scale(1.02);
     }
     .ramen-emoji {
-      font-size: 4rem;
-      margin: 0.5rem 0;
+      font-size: 3rem;
+      margin: 0.2rem 0;
     }
     .ramen-name {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: bold;
-      margin: 0.5rem 0;
+      margin: 0.3rem 0;
     }
     .ramen-desc {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       opacity: 0.8;
     }
 
-    /* 詳細ビュー */
+    /* 詳細ビューなど既存スタイル */
     .detail-view, .topping-view {
       background: rgba(0,0,0,0.2);
       border-radius: 1.5rem;
@@ -208,9 +232,29 @@
       padding: 0.8rem;
       margin-top: 1rem;
     }
+    /* スライダーインジケーター（オプション） */
+    .slider-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+    .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      background: currentColor;
+      opacity: 0.3;
+      transition: 0.2s;
+    }
+    .indicator.active {
+      opacity: 1;
+      width: 20px;
+    }
     @media (max-width: 640px) {
       body { padding: 0.8rem; }
-      .ramen-name { font-size: 1.3rem; }
+      .ramen-name { font-size: 1.2rem; }
+      .ramen-emoji { font-size: 2.5rem; }
     }
   </style>
 </head>
@@ -257,7 +301,10 @@
       soup: "Soup",
       noodle: "Noodle",
       toppings: "Toppings",
-      choose_ramen_first: "Select a ramen style from the list"
+      choose_ramen_first: "Select a ramen style from the list",
+      group_left: "Classic",
+      group_center: "Specialty",
+      group_right: "Heavy & Bold"
     },
     it: {
       app_title: "🍜 Bussola Ramen",
@@ -274,7 +321,10 @@
       soup: "Brodo",
       noodle: "Pasta",
       toppings: "Topping",
-      choose_ramen_first: "Seleziona un tipo di ramen dalla lista"
+      choose_ramen_first: "Seleziona un tipo di ramen dalla lista",
+      group_left: "Classici",
+      group_center: "Specialità",
+      group_right: "Intensi & Audaci"
     },
     ru: {
       app_title: "🍜 Рамен гид",
@@ -291,7 +341,10 @@
       soup: "Бульон",
       noodle: "Лапша",
       toppings: "Топпинги",
-      choose_ramen_first: "Выберите вид рамена из списка"
+      choose_ramen_first: "Выберите вид рамена из списка",
+      group_left: "Классика",
+      group_center: "Особые",
+      group_right: "Насыщенные"
     },
     ja: {
       app_title: "🍜 ラーメンカタログ",
@@ -308,21 +361,23 @@
       soup: "スープ",
       noodle: "麺",
       toppings: "トッピング",
-      choose_ramen_first: "一覧からラーメンを選んでください"
+      choose_ramen_first: "一覧からラーメンを選んでください",
+      group_left: "定番",
+      group_center: "スペシャル",
+      group_right: "濃厚・個性派"
     }
   };
 
   let currentLang = 'en';
-  let currentTheme = 'dark';   // dark default
-  // アプリ状態
-  let navStack = [];            // 履歴: 'home' または {type:'ramen', ramenId, selectedSoup, selectedNoodle}
+  let currentTheme = 'dark';
+  let navStack = [];
   let currentRamenId = null;
   let selectedSoup = null;
   let selectedNoodle = null;
-  let selectedToppings = [];    // topping id の配列
+  let selectedToppings = [];
   let showingTopping = false;
 
-  // ----- データ定義 -----
+  // ラーメンデータ（元の順番は変更せず、グループ分けはidベース）
   const ramenData = [
     { id: "shoyu", name_en:"Shoyu", name_it:"Shoyu", name_ru:"Сёю", name_ja:"醤油", desc_en:"Soy sauce based, clear or rich", desc_it:"Base di salsa di soia", desc_ru:"Соевый соус", desc_ja:"醤油ベースのあっさり〜こってり", emoji:"🍜", link:"https://www.afuri.com/" },
     { id: "shio", name_en:"Shio", name_it:"Shio", name_ru:"Сио", name_ja:"塩", desc_en:"Salt based, light & elegant", desc_it:"Base di sale", desc_ru:"Соляной", desc_ja:"あっさり塩味", emoji:"🥣", link:"https://www.ginza-hachigo.com/" },
@@ -336,7 +391,13 @@
     { id: "iekei", name_en:"Ie-kei", name_it:"Ie-kei", name_ru:"Иэ-кэй", name_ja:"家系", desc_en:"Tonkotsu-shoyu with nori & spinach", desc_it:"Tonkotsu shoyu", desc_ru:"Тонкоцу-сёю", desc_ja:"豚骨醤油＋海苔ほうれん草", emoji:"🍥", link:"https://www.yoshimuraya.com/" }
   ];
 
-  // スープバリエーション (カテゴリ共通＋個別調整可、簡易的に全ラーメンで同じ選択肢)
+  // グループ定義 (idの配列)
+  const groups = [
+    { ids: ["shoyu", "shio", "miso", "tonkotsu"], titleKey: "group_left" },
+    { ids: ["tammen", "tantantan", "hiyashi", "tsukemen"], titleKey: "group_center" },
+    { ids: ["jiro", "iekei"], titleKey: "group_right" }
+  ];
+
   const soupOptions = [
     { id:"clear",  name_en:"Clear broth", name_it:"Brodo chiaro", name_ru:"Прозрачный бульон", name_ja:"清湯" },
     { id:"creamy", name_en:"Creamy broth", name_it:"Brodo denso", name_ru:"Наваристый", name_ja:"白湯" },
@@ -349,7 +410,6 @@
     { id:"extra_thick",   name_en:"Extra thick (tsukemen)", name_it:"Extra spessa", name_ru:"Экстра толстая", name_ja:"極太" },
     { id:"medium",        name_en:"Medium straight", name_it:"Media dritta", name_ru:"Средняя прямая", name_ja:"中太ストレート" }
   ];
-  // トッピング（共通＋固有は表示時にラーメンIDでフィルタ可能だがここでは全表示で十分）
   const toppingList = [
     { id:"chashu", name_en:"Chashu", name_it:"Chashu", name_ru:"Чашу", name_ja:"チャーシュー" },
     { id:"ajitama", name_en:"Ajitama egg", name_it:"Uovo marinato", name_ru:"Яйцо", name_ja:"味玉" },
@@ -361,11 +421,9 @@
     { id:"garlic", name_en:"Garlic", name_it:"Aglio", name_ru:"Чеснок", name_ja:"にんにく" }
   ];
 
-  // ヘルパー: 多言語テキスト取得
   function t(key) {
     return translations[currentLang][key] || key;
   }
-
   function getRamenName(ramen) {
     return ramen[`name_${currentLang}`] || ramen.name_en;
   }
@@ -376,113 +434,65 @@
     return opt[`name_${currentLang}`] || opt.name_en;
   }
 
-  // レンダリングメイン
-  function render() {
+  // ホーム画面: スライド式グループ
+  function renderHome() {
     const mainEl = document.getElementById('appMain');
-    if (!navStack.length || navStack[0] === 'home') {
-      // ホーム画面
-      mainEl.innerHTML = `
-        <div class="ramen-grid">
-          ${ramenData.map(ramen => `
-            <div class="ramen-card" data-ramen-id="${ramen.id}">
-              <div class="ramen-emoji">${ramen.emoji}</div>
-              <div class="ramen-name">${getRamenName(ramen)}</div>
-              <div class="ramen-desc">${getRamenDesc(ramen)}</div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      document.querySelectorAll('.ramen-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-          const id = card.dataset.ramenId;
-          showRamenDetail(id);
-        });
-      });
-    } 
-    else if (showingTopping) {
-      // トッピング画面
-      const ramen = ramenData.find(r => r.id === currentRamenId);
-      if (!ramen) return;
-      mainEl.innerHTML = `
-        <div class="topping-view">
-          <h2>${getRamenName(ramen)} - ${t('toppings_title')}</h2>
-          <div class="topping-list">
-            ${toppingList.map(top => `
-              <label class="topping-item">
-                <input type="checkbox" value="${top.id}" ${selectedToppings.includes(top.id) ? 'checked' : ''}>
-                ${getOptionName(top)}
-              </label>
+    // グループHTML構築
+    let groupsHtml = `<div class="groups-slider" id="groupsSlider">`;
+    groups.forEach((group, idx) => {
+      const groupRamen = group.ids.map(id => ramenData.find(r => r.id === id)).filter(r => r);
+      groupsHtml += `
+        <div class="group" data-group-index="${idx}">
+          <div class="group-title">${t(group.titleKey)}</div>
+          <div class="ramen-grid-vertical">
+            ${groupRamen.map(ramen => `
+              <div class="ramen-card" data-ramen-id="${ramen.id}">
+                <div class="ramen-emoji">${ramen.emoji}</div>
+                <div class="ramen-name">${getRamenName(ramen)}</div>
+                <div class="ramen-desc">${getRamenDesc(ramen)}</div>
+              </div>
             `).join('')}
           </div>
-          <div class="selected-summary">
-            <strong>${t('selected')}</strong><br>
-            🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>
-            🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>
-            🥗 ${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}
-          </div>
-          <div class="nav-buttons">
-            <button class="btn-like" id="backPrevBtn">${t('back_previous')}</button>
-            <button class="btn-like" id="completeBtn">${t('complete_order')}</button>
-          </div>
         </div>
       `;
-      const checkboxes = document.querySelectorAll('.topping-item input');
-      checkboxes.forEach(cb => {
-        cb.addEventListener('change', (e) => {
-          if (cb.checked) selectedToppings.push(cb.value);
-          else selectedToppings = selectedToppings.filter(v => v !== cb.value);
+    });
+    groupsHtml += `</div><div class="slider-indicators" id="sliderIndicators"></div>`;
+    mainEl.innerHTML = groupsHtml;
+
+    // カードクリックイベント
+    document.querySelectorAll('.ramen-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const id = card.dataset.ramenId;
+        if (id) showRamenDetail(id);
+      });
+    });
+
+    // インジケーター作成 & スクロール連動
+    const slider = document.getElementById('groupsSlider');
+    const indicatorsContainer = document.getElementById('sliderIndicators');
+    if (slider && indicatorsContainer) {
+      const groupCount = groups.length;
+      for (let i = 0; i < groupCount; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('indicator');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => {
+          slider.scrollTo({ left: slider.clientWidth * i, behavior: 'smooth' });
         });
-      });
-      document.getElementById('backPrevBtn')?.addEventListener('click', () => { backToPrev(); });
-      document.getElementById('completeBtn')?.addEventListener('click', () => {
-        alert(`✅ ${t('selected')}\n${t('soup')}: ${getOptionName(soupOptions.find(s=>s.id===selectedSoup))}\n${t('noodle')}: ${getOptionName(noodleOptions.find(n=>n.id===selectedNoodle))}\n${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ')}`);
-      });
-    } 
-    else if (currentRamenId) {
-      // 詳細画面 (スープ/麺選択)
-      const ramen = ramenData.find(r => r.id === currentRamenId);
-      if (!ramen) return;
-      mainEl.innerHTML = `
-        <div class="detail-view">
-          <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-            <span style="font-size:3rem;">${ramen.emoji}</span>
-            <h2>${getRamenName(ramen)}</h2>
-          </div>
-          <p>${getRamenDesc(ramen)}</p>
-          <a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a>
-          
-          <div class="options-section">
-            <h3>${t('select_soup')}</h3>
-            <div class="option-buttons" id="soupButtons">
-              ${soupOptions.map(opt => `<button class="option-btn ${selectedSoup === opt.id ? 'selected' : ''}" data-soup="${opt.id}">${getOptionName(opt)}</button>`).join('')}
-            </div>
-          </div>
-          <div class="options-section">
-            <h3>${t('select_noodle')}</h3>
-            <div class="option-buttons" id="noodleButtons">
-              ${noodleOptions.map(opt => `<button class="option-btn ${selectedNoodle === opt.id ? 'selected' : ''}" data-noodle="${opt.id}">${getOptionName(opt)}</button>`).join('')}
-            </div>
-          </div>
-          <div class="nav-buttons">
-            <button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button>
-            <button class="btn-like" id="nextToppingBtn">${t('next_step')}</button>
-          </div>
-        </div>
-      `;
-      // イベント
-      document.querySelectorAll('[data-soup]').forEach(btn => {
-        btn.addEventListener('click', (e) => { selectedSoup = btn.dataset.soup; render(); });
-      });
-      document.querySelectorAll('[data-noodle]').forEach(btn => {
-        btn.addEventListener('click', (e) => { selectedNoodle = btn.dataset.noodle; render(); });
-      });
-      document.getElementById('backHomeBtn')?.addEventListener('click', () => { goHome(); });
-      document.getElementById('nextToppingBtn')?.addEventListener('click', () => {
-        if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; }
-        showingTopping = true;
-        navStack.push({type:'ramen', ramenId:currentRamenId, selectedSoup, selectedNoodle});
-        render();
-      });
+        indicatorsContainer.appendChild(dot);
+      }
+      const updateIndicators = () => {
+        const scrollPos = slider.scrollLeft;
+        const width = slider.clientWidth;
+        const activeIndex = Math.round(scrollPos / width);
+        document.querySelectorAll('.indicator').forEach((ind, idx) => {
+          if (idx === activeIndex) ind.classList.add('active');
+          else ind.classList.remove('active');
+        });
+      };
+      slider.addEventListener('scroll', updateIndicators);
+      window.addEventListener('resize', () => updateIndicators());
+      updateIndicators();
     }
   }
 
@@ -492,8 +502,93 @@
     selectedNoodle = null;
     selectedToppings = [];
     showingTopping = false;
-    navStack = ['detail']; // 簡易履歴
-    render();
+    navStack = ['detail'];
+    renderDetail();
+  }
+
+  function renderDetail() {
+    const ramen = ramenData.find(r => r.id === currentRamenId);
+    if (!ramen) return;
+    const mainEl = document.getElementById('appMain');
+    mainEl.innerHTML = `
+      <div class="detail-view">
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <span style="font-size:3rem;">${ramen.emoji}</span>
+          <h2>${getRamenName(ramen)}</h2>
+        </div>
+        <p>${getRamenDesc(ramen)}</p>
+        <a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a>
+        
+        <div class="options-section">
+          <h3>${t('select_soup')}</h3>
+          <div class="option-buttons" id="soupButtons">
+            ${soupOptions.map(opt => `<button class="option-btn ${selectedSoup === opt.id ? 'selected' : ''}" data-soup="${opt.id}">${getOptionName(opt)}</button>`).join('')}
+          </div>
+        </div>
+        <div class="options-section">
+          <h3>${t('select_noodle')}</h3>
+          <div class="option-buttons" id="noodleButtons">
+            ${noodleOptions.map(opt => `<button class="option-btn ${selectedNoodle === opt.id ? 'selected' : ''}" data-noodle="${opt.id}">${getOptionName(opt)}</button>`).join('')}
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button>
+          <button class="btn-like" id="nextToppingBtn">${t('next_step')}</button>
+        </div>
+      </div>
+    `;
+    document.querySelectorAll('[data-soup]').forEach(btn => {
+      btn.addEventListener('click', (e) => { selectedSoup = btn.dataset.soup; renderDetail(); });
+    });
+    document.querySelectorAll('[data-noodle]').forEach(btn => {
+      btn.addEventListener('click', (e) => { selectedNoodle = btn.dataset.noodle; renderDetail(); });
+    });
+    document.getElementById('backHomeBtn')?.addEventListener('click', () => goHome());
+    document.getElementById('nextToppingBtn')?.addEventListener('click', () => {
+      if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; }
+      showingTopping = true;
+      navStack.push({type:'ramen', ramenId:currentRamenId, selectedSoup, selectedNoodle});
+      renderTopping();
+    });
+  }
+
+  function renderTopping() {
+    const ramen = ramenData.find(r => r.id === currentRamenId);
+    const mainEl = document.getElementById('appMain');
+    mainEl.innerHTML = `
+      <div class="topping-view">
+        <h2>${getRamenName(ramen)} - ${t('toppings_title')}</h2>
+        <div class="topping-list">
+          ${toppingList.map(top => `
+            <label class="topping-item">
+              <input type="checkbox" value="${top.id}" ${selectedToppings.includes(top.id) ? 'checked' : ''}>
+              ${getOptionName(top)}
+            </label>
+          `).join('')}
+        </div>
+        <div class="selected-summary">
+          <strong>${t('selected')}</strong><br>
+          🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>
+          🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>
+          🥗 ${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-like" id="backPrevBtn">${t('back_previous')}</button>
+          <button class="btn-like" id="completeBtn">${t('complete_order')}</button>
+        </div>
+      </div>
+    `;
+    const checkboxes = document.querySelectorAll('.topping-item input');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        if (cb.checked) selectedToppings.push(cb.value);
+        else selectedToppings = selectedToppings.filter(v => v !== cb.value);
+      });
+    });
+    document.getElementById('backPrevBtn')?.addEventListener('click', () => { backToPrev(); });
+    document.getElementById('completeBtn')?.addEventListener('click', () => {
+      alert(`✅ ${t('selected')}\n${t('soup')}: ${getOptionName(soupOptions.find(s=>s.id===selectedSoup))}\n${t('noodle')}: ${getOptionName(noodleOptions.find(n=>n.id===selectedNoodle))}\n${t('toppings')}: ${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ')}`);
+    });
   }
 
   function goHome() {
@@ -503,14 +598,13 @@
     selectedSoup = null;
     selectedNoodle = null;
     selectedToppings = [];
-    render();
+    renderHome();
   }
 
   function backToPrev() {
     if (showingTopping) {
       showingTopping = false;
-      navStack.pop();
-      render();
+      renderDetail();
     } else if (currentRamenId) {
       goHome();
     } else {
@@ -518,7 +612,6 @@
     }
   }
 
-  // テーマ切替
   function setTheme(theme) {
     currentTheme = theme;
     document.body.classList.remove('dark', 'light');
@@ -527,23 +620,22 @@
     if (btn) btn.innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
   }
 
-  // 言語切替
   function setLanguage(lang) {
     currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (key && translations[lang][key]) el.innerText = translations[lang][key];
     });
-    render();
+    if (!currentRamenId && !showingTopping) renderHome();
+    else if (currentRamenId && !showingTopping) renderDetail();
+    else if (showingTopping) renderTopping();
   }
 
-  // 初期化 & SW登録
   window.addEventListener('DOMContentLoaded', () => {
     setTheme('dark');
     setLanguage('en');
-    goHome();
+    renderHome();
 
-    // 言語ボタン
     document.querySelectorAll('[data-lang]').forEach(btn => {
       btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
     });
@@ -551,7 +643,6 @@
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
 
-    // サービスワーカー登録
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').then(reg => {
         console.log('SW registered', reg);
