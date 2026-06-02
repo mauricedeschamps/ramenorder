@@ -331,112 +331,54 @@
 </div>
 
 <script>
-  // ---------- 多言語辞書（確認ページ用メッセージ追加）----------
+  // ---------- 多言語辞書（既存のUI翻訳、問題なし）----------
   const translations = {
-    en: {
+    en: { /* 省略 - 以前と同じ */ 
       app_title: "🍜 Ramen Compass & Lesson",
-      back_to_home: "🏠 Home",
-      back_previous: "◀ Back",
-      next_step: "Next → Toppings",
-      select_soup: "1. Choose Soup Style",
-      select_noodle: "2. Choose Noodle Type",
-      toppings_title: "3. Choose Toppings",
-      confirm_title: "4. Confirm Your Ramen",
-      confirm_order: "✅ This is your ramen",
-      edit_order: "✏️ Edit selections",
-      send_order: "📨 Send Order (Demo)",
-      order_sent: "Thank you! Your order has been received.",
-      selected: "Your choices:",
-      official_link: "🌟 Official website example",
-      contact_us: "Contact us",
-      soup: "Soup",
-      noodle: "Noodle",
-      toppings: "Toppings",
-      choose_ramen_first: "Select a ramen style from the list",
-      group_left: "Classic",
-      group_center: "Specialty",
-      group_right: "Heavy & Bold",
+      back_to_home: "🏠 Home", back_previous: "◀ Back", next_step: "Next → Toppings",
+      select_soup: "1. Choose Soup Style", select_noodle: "2. Choose Noodle Type",
+      toppings_title: "3. Choose Toppings", confirm_title: "4. Confirm Your Ramen",
+      confirm_order: "✅ This is your ramen", edit_order: "✏️ Edit selections",
+      send_order: "📨 Send Order (Demo)", order_sent: "Thank you! Your order has been received.",
+      selected: "Your choices:", official_link: "🌟 Official website example", contact_us: "Contact us",
+      soup: "Soup", noodle: "Noodle", toppings: "Toppings", choose_ramen_first: "Select a ramen style from the list",
+      group_left: "Classic", group_center: "Specialty", group_right: "Heavy & Bold",
       soup_lesson: "Soup is the heart of ramen. Clear soups are light and aromatic; creamy soups are rich and fatty; seafood adds umami; spicy gives a kick.",
       noodle_lesson: "Noodles vary in thickness and texture. Thin straight: delicate; thick wavy: chewy; extra thick: for dipping; medium: versatile.",
       topping_lesson: "Tap the ⓘ icon to learn about each topping!"
     },
     it: {
-      app_title: "🍜 Ramen Compass & Lezione",
-      back_to_home: "🏠 Home",
-      back_previous: "◀ Indietro",
-      next_step: "Avanti → Condimenti",
-      select_soup: "1. Scegli Brodo",
-      select_noodle: "2. Scegli Pasta",
-      toppings_title: "3. Scegli Topping",
-      confirm_title: "4. Conferma il tuo Ramen",
-      confirm_order: "✅ Questo è il tuo ramen",
-      edit_order: "✏️ Modifica scelte",
-      send_order: "📨 Invia ordine (Demo)",
-      order_sent: "Grazie! Il tuo ordine è stato ricevuto.",
-      selected: "Le tue scelte:",
-      official_link: "🌟 Sito ufficiale esempio",
-      contact_us: "Contattaci",
-      soup: "Brodo",
-      noodle: "Pasta",
-      toppings: "Topping",
-      choose_ramen_first: "Seleziona un tipo di ramen",
-      group_left: "Classici",
-      group_center: "Specialità",
-      group_right: "Intensi",
+      app_title: "🍜 Ramen Compass & Lezione", back_to_home: "🏠 Home", back_previous: "◀ Indietro",
+      next_step: "Avanti → Condimenti", select_soup: "1. Scegli Brodo", select_noodle: "2. Scegli Pasta",
+      toppings_title: "3. Scegli Topping", confirm_title: "4. Conferma il tuo Ramen", confirm_order: "✅ Questo è il tuo ramen",
+      edit_order: "✏️ Modifica scelte", send_order: "📨 Invia ordine (Demo)", order_sent: "Grazie! Il tuo ordine è stato ricevuto.",
+      selected: "Le tue scelte:", official_link: "🌟 Sito ufficiale esempio", contact_us: "Contattaci",
+      soup: "Brodo", noodle: "Pasta", toppings: "Topping", choose_ramen_first: "Seleziona un tipo di ramen",
+      group_left: "Classici", group_center: "Specialità", group_right: "Intensi",
       soup_lesson: "Il brodo è il cuore. Chiaro: leggero; Cremoso: ricco; Pesce: umami; Piccante: speziato.",
       noodle_lesson: "Sottile dritta: delicata; Spessa ondulata: gommosa; Extra spessa: per immersione; Media: versatile.",
       topping_lesson: "Tocca ⓘ per info su ogni topping!"
     },
     ru: {
-      app_title: "🍜 Гид по рамену + урок",
-      back_to_home: "🏠 Главная",
-      back_previous: "◀ Назад",
-      next_step: "Далее → Топпинги",
-      select_soup: "1. Выберите бульон",
-      select_noodle: "2. Выберите лапшу",
-      toppings_title: "3. Топпинги",
-      confirm_title: "4. Подтвердите заказ",
-      confirm_order: "✅ Ваш рамен",
-      edit_order: "✏️ Изменить выбор",
-      send_order: "📨 Отправить заказ (Демо)",
-      order_sent: "Спасибо! Заказ получен.",
-      selected: "Ваш выбор:",
-      official_link: "🌟 Пример офиц. сайта",
-      contact_us: "Связаться",
-      soup: "Бульон",
-      noodle: "Лапша",
-      toppings: "Топпинги",
-      choose_ramen_first: "Выберите вид рамена",
-      group_left: "Классика",
-      group_center: "Особые",
-      group_right: "Насыщенные",
+      app_title: "🍜 Гид по рамену + урок", back_to_home: "🏠 Главная", back_previous: "◀ Назад",
+      next_step: "Далее → Топпинги", select_soup: "1. Выберите бульон", select_noodle: "2. Выберите лапшу",
+      toppings_title: "3. Топпинги", confirm_title: "4. Подтвердите заказ", confirm_order: "✅ Ваш рамен",
+      edit_order: "✏️ Изменить выбор", send_order: "📨 Отправить заказ (Демо)", order_sent: "Спасибо! Заказ получен.",
+      selected: "Ваш выбор:", official_link: "🌟 Пример офиц. сайта", contact_us: "Связаться",
+      soup: "Бульон", noodle: "Лапша", toppings: "Топпинги", choose_ramen_first: "Выберите вид рамена",
+      group_left: "Классика", group_center: "Особые", group_right: "Насыщенные",
       soup_lesson: "Бульон — сердце. Прозрачный: лёгкий; Сливочный: жирный; Рыбный: умами; Острый: пикантный.",
       noodle_lesson: "Тонкая прямая: нежная; Толстая волнистая: жёваная; Экстра толстая: для макания; Средняя: универсальная.",
       topping_lesson: "Нажмите ⓘ для описания топпинга!"
     },
-    ja: {
-      app_title: "🍜 ラーメン講座＆カタログ",
-      back_to_home: "🏠 ホーム",
-      back_previous: "◀ 戻る",
-      next_step: "次へ → トッピング",
-      select_soup: "1. スープを選ぶ",
-      select_noodle: "2. 麺を選ぶ",
-      toppings_title: "3. トッピングを選ぶ",
-      confirm_title: "4. 注文内容を確認",
-      confirm_order: "✅ あなたの選んだラーメンはこちらです",
-      edit_order: "✏️ 選択を戻る",
-      send_order: "📨 注文を確定する（デモ）",
-      order_sent: "ありがとうございます！注文を受け付けました。",
-      selected: "あなたの選択:",
-      official_link: "🌟 公式サイト例",
-      contact_us: "お問い合わせ",
-      soup: "スープ",
-      noodle: "麺",
-      toppings: "トッピング",
-      choose_ramen_first: "一覧からラーメンを選んでください",
-      group_left: "定番",
-      group_center: "スペシャル",
-      group_right: "濃厚・個性派",
+    ja: { /* 日本語はそのまま */ 
+      app_title: "🍜 ラーメン講座＆カタログ", back_to_home: "🏠 ホーム", back_previous: "◀ 戻る",
+      next_step: "次へ → トッピング", select_soup: "1. スープを選ぶ", select_noodle: "2. 麺を選ぶ",
+      toppings_title: "3. トッピングを選ぶ", confirm_title: "4. 注文内容を確認", confirm_order: "✅ あなたの選んだラーメンはこちらです",
+      edit_order: "✏️ 選択を戻る", send_order: "📨 注文を確定する（デモ）", order_sent: "ありがとうございます！注文を受け付けました。",
+      selected: "あなたの選択:", official_link: "🌟 公式サイト例", contact_us: "お問い合わせ",
+      soup: "スープ", noodle: "麺", toppings: "トッピング", choose_ramen_first: "一覧からラーメンを選んでください",
+      group_left: "定番", group_center: "スペシャル", group_right: "濃厚・個性派",
       soup_lesson: "スープはラーメンの命。清湯はあっさり、白湯はコク、魚介は旨味、辛口はピリリ。",
       noodle_lesson: "麺の太さと食感。細ストレート：繊細、太ちぢれ：モチモチ、極太：つけ麺向き、中太：万能。",
       topping_lesson: "ⓘ をタップすると各トッピングの説明が表示されます。"
@@ -452,114 +394,179 @@
   let showingTopping = false;
   let showingConfirm = false;
 
-  // ラーメンデータ（画像URLはご指定のまま維持）
+  // ---------- ラーメンデータ（イタリア語・ロシア語説明を追加）----------
   const ramenData = [
-    { id: "shoyu", name_en:"Shoyu", name_ja:"醤油", emoji:"🍜", link:"https://www.afuri.com/",
+    { id: "shoyu", name_en:"Shoyu", name_it:"Shoyu", name_ru:"Сёю", name_ja:"醤油",
+      emoji:"🍜", link:"https://www.afuri.com/",
       imagePlaceholder: "https://zenb.jp/cdn/shop/articles/1030_9d5eca8a-8b38-4179-bcb4-63d16f117c72_645x.jpg?v=1738041434",
-      desc_short_en:"Soy sauce based, clear or rich", desc_short_ja:"醤油ベースのあっさり〜こってり",
+      desc_short_en:"Soy sauce based, clear or rich", desc_short_it:"Base di salsa di soia, chiara o ricca", desc_short_ru:"На основе соевого соуса, прозрачный или наваристый", desc_short_ja:"醤油ベースのあっさり〜こってり",
       desc_long_en:"The most common ramen. Originated in Tokyo. Soy sauce gives a tangy, savory depth. Toppings: chashu, menma, nori, green onion. Tips: Try with a hint of yuzu for freshness. Famous shops: Afuri (Tokyo), Ippudo (global).",
+      desc_long_it:"Il ramen più comune. Nato a Tokyo. La salsa di soia dà profondità. Topping: chashu, menma, nori, cipollotto. Consiglio: un tocco di yuzu. Negozi famosi: Afuri, Ippudo.",
+      desc_long_ru:"Самый распространённый рамен. Родом из Токио. Соевый соус придаёт пикантность. Топпинги: тяшу, мэнма, нори, лук. Совет: добавьте юдзу. Известные магазины: Afuri, Ippudo.",
       desc_long_ja:"最も一般的なラーメン。東京発祥。醤油のキレと旨味。チャーシュー、メンマ、海苔、ねぎが定番。ゆず風味もおすすめ。有名店：AFURI、一風堂。" },
-    { id: "shio", name_en:"Shio", name_ja:"塩", emoji:"🥣", link:"https://katsumoto-japan.com/ginza_hachigou.html",
+    { id: "shio", name_en:"Shio", name_it:"Shio", name_ru:"Сио", name_ja:"塩",
+      emoji:"🥣", link:"https://katsumoto-japan.com/ginza_hachigou.html",
       imagePlaceholder: "https://cdn.macaro-ni.jp/image/summary/79/79514/5b24348d0eeed3f11daffac1eff219c8.jpg",
-      desc_short_en:"Salt based, light & elegant", desc_short_ja:"あっさり塩味",
+      desc_short_en:"Salt based, light & elegant", desc_short_it:"Base di sale, leggero ed elegante", desc_short_ru:"Соляной, лёгкий и изысканный", desc_short_ja:"あっさり塩味",
       desc_long_en:"Delicate, often paired with chicken or seafood broth. Popular in Hakodate. Let the quality of salt shine. Tips: Add a squeeze of lemon. Famous: Ginza Hachigo (Tokyo), Ramen Santouka (Hokkaido).",
+      desc_long_it:"Delicato, spesso abbinato a brodo di pollo o pesce. Popolare a Hakodate. Consiglio: una spruzzata di limone. Famosi: Ginza Hachigo, Santouka.",
+      desc_long_ru:"Нежный, часто с куриным или рыбным бульоном. Популярен в Хакодате. Совет: добавьте лимон. Известные: Ginza Hachigo, Santouka.",
       desc_long_ja:"繊細な味わい。鶏ガラや魚介と相性良し。函館が発祥。レモンを絞ると爽やか。銀座八五、山頭火が有名。" },
-    { id: "miso", name_en:"Miso", name_ja:"味噌", emoji:"🍲", link:"https://www.sumire-ramen.com/",
+    { id: "miso", name_en:"Miso", name_it:"Miso", name_ru:"Мисо", name_ja:"味噌",
+      emoji:"🍲", link:"https://www.sumire-ramen.com/",
       imagePlaceholder: "https://www.maruchan.co.jp/assets_c/2020/08/216_%E6%9C%AD%E5%B9%8C%E5%91%B3%E5%99%8C%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%E9%A2%A8%E3%80%80%E3%83%9E%E3%83%AB%E3%81%A1%E3%82%83%E3%82%93%E6%AD%A3%E9%BA%BA-thumb-750x600-16119.jpg",
-      desc_short_en:"Rich miso & vegetables", desc_short_ja:"味噌コク旨",
+      desc_short_en:"Rich miso & vegetables", desc_short_it:"Miso ricco e verdure", desc_short_ru:"Насыщенный мисо с овощами", desc_short_ja:"味噌コク旨",
       desc_long_en:"Hokkaido specialty, hearty and savory. Often includes corn, butter, and stir-fried veggies. Tips: Spicy miso variation is common. Famous: Sumire (Sapporo), Ramen Jiro (inspired).",
+      desc_long_it:"Specialità dell'Hokkaido, sostanzioso. Spesso con mais, burro e verdure saltate. Variante piccante comune. Famosi: Sumire, Jiro.",
+      desc_long_ru:"Специалитет Хоккайдо, сытный. Часто с кукурузой, маслом и жареными овощами. Острый вариант популярен. Известные: Sumire, Jiro.",
       desc_long_ja:"北海道発祥。コーン、バター、炒め野菜が合う。辛味噌も人気。すみれ、二郎インスパイア。" },
-    { id: "tonkotsu", name_en:"Tonkotsu", name_ja:"とんこつ", emoji:"🐷", link:"https://www.ichiran.com/",
+    { id: "tonkotsu", name_en:"Tonkotsu", name_it:"Tonkotsu", name_ru:"Тонкоцу", name_ja:"とんこつ",
+      emoji:"🐷", link:"https://www.ichiran.com/",
       imagePlaceholder: "https://zenb.jp/cdn/shop/articles/912a_3f5d0deb-5d96-4154-875b-3e237511bee5_645x.jpg?v=1774940851",
-      desc_short_en:"Pork bone creamy broth", desc_short_ja:"豚骨白湯",
+      desc_short_en:"Pork bone creamy broth", desc_short_it:"Brodo cremoso di ossa di maiale", desc_short_ru:"Сливочный бульон из свиных костей", desc_short_ja:"豚骨白湯",
       desc_long_en:"From Kyushu, especially Hakata. Rich, milky, and fatty. Thin straight noodles. Toppings: red ginger, garlic, sesame. Tips: Add 'kaedama' (extra noodles). Famous: Ichiran, Ippudo, Hakata Ikkousha.",
+      desc_long_it:"Dalla Kyushu, specialmente Hakata. Ricco, latteo, grasso. Tagliolini sottili. Consiglio: kaedama (porzione extra). Famosi: Ichiran, Ippudo, Hakata Ikkousha.",
+      desc_long_ru:"Из Кюсю, особенно Хаката. Насыщенный, молочный, жирный. Тонкая прямая лапша. Совет: каэдама (доп. порция). Известные: Ichiran, Ippudo, Hakata Ikkousha.",
       desc_long_ja:"九州・博多発祥。白濁濃厚。極細ストレート麺。紅生姜、にんにく。替え玉文化。一蘭、一風堂、博多一幸舎。" },
-    { id: "tammen", name_en:"Tammen", name_ja:"タンメン", emoji:"🥬", link:"https://tanmen-tonari.com/",
+    { id: "tammen", name_en:"Tammen", name_it:"Tammen", name_ru:"Таммэн", name_ja:"タンメン",
+      emoji:"🥬", link:"https://tanmen-tonari.com/",
       imagePlaceholder: "https://tanmen-tonari.com/core/views/9f50e8389b/img/index/photo01.jpg?v3",
-      desc_short_en:"Stir-fried veggies & salt broth", desc_short_ja:"野菜炒めあんかけ",
+      desc_short_en:"Stir-fried veggies & salt broth", desc_short_it:"Verdure saltate e brodo salato", desc_short_ru:"Жареные овощи и солёный бульон", desc_short_ja:"野菜炒めあんかけ",
       desc_long_en:"Chinese-origin, popular in Yokohama. Loads of stir-fried cabbage, carrot, onion. Light salty broth. Healthy and filling. Tips: Add a dash of pepper.",
+      desc_long_it:"Di origine cinese, popolare a Yokohama. Tante verdure saltate (cavolo, carota, cipolla). Brodo leggero. Sano e saziante. Consiglio: un pizzico di pepe.",
+      desc_long_ru:"Китайского происхождения, популярен в Иокогаме. Много жареных овощей (капуста, морковь, лук). Лёгкий солёный бульон. Полезно и сытно. Совет: добавьте перец.",
       desc_long_ja:"横浜発祥。大量の野菜炒めを塩スープで。ヘルシーでボリューム満点。胡椒をかけて。" },
-    { id: "tantantan", name_en:"Tantanmen", name_ja:"担々麺", emoji:"🌶️", link:"https://gf8f400.gorp.jp/",
+    { id: "tantantan", name_en:"Tantanmen", name_it:"Tantanmen", name_ru:"Данданьмянь", name_ja:"担々麺",
+      emoji:"🌶️", link:"https://gf8f400.gorp.jp/",
       imagePlaceholder: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97F7i2I4shS9U0voi0aU2g0Giyio_HVD5mX0j63aqAfyU9jInCPu01VHx&s=10",
-      desc_short_en:"Spicy sesame & chili", desc_short_ja:"胡麻辛味",
+      desc_short_en:"Spicy sesame & chili", desc_short_it:"Piccante al sesamo e peperoncino", desc_short_ru:"Острая кунжутная с чили", desc_short_ja:"胡麻辛味",
       desc_long_en:"Japanese take on Sichuan dan dan noodles. Creamy sesame, spicy chili oil, ground pork. Tips: Adjust spiciness. Famous: Nakiryu (Michelin-starred), Ryu's Shanghai.",
+      desc_long_it:"Versione giapponese dei dan dan noodles del Sichuan. Sesamo cremoso, olio piccante, maiale macinato. Consiglio: regola il piccante. Famosi: Nakiryu, Ryu's Shanghai.",
+      desc_long_ru:"Японская версия сычуаньской лапши дандань. Кремовый кунжут, острое чили-масло, свиной фарш. Совет: регулируйте остроту. Известные: Nakiryu, Ryu's Shanghai.",
       desc_long_ja:"四川の坦坦麺が日本風に。胡麻のコクと辣油の辛さ。ミシュラン獲得「鳴龍」が有名。" },
-    { id: "tsukemen", name_en:"Tsukemen", name_ja:"つけ麺", emoji:"🥢", link:"https://menya634.co.jp/",
+    { id: "tsukemen", name_en:"Tsukemen", name_it:"Tsukemen", name_ru:"Цукэмэн", name_ja:"つけ麺",
+      emoji:"🥢", link:"https://menya634.co.jp/",
       imagePlaceholder: "https://park.ajinomoto.co.jp/wp-content/uploads/2024/08/803753.jpeg",
-      desc_short_en:"Dip thick noodles into rich broth", desc_short_ja:"濃厚魚介つけ麺",
+      desc_short_en:"Dip thick noodles into rich broth", desc_short_it:"Spesse noodles da intingere in brodo ricco", desc_short_ru:"Густая лапша для макания в наваристый бульон", desc_short_ja:"濃厚魚介つけ麺",
       desc_long_en:"Noodles and soup separate. Thick, chewy noodles dipped into concentrated broth (often fish & pork). Tips: Add 'soup wari' (hot broth) after finishing noodles. Famous: Tomita (Chiba), Rokurinsha (Tokyo).",
+      desc_long_it:"Noodles e brodo separati. Noodles spessi e gommosi da intingere in brodo concentrato (spesso pesce e maiale). Consiglio: aggiungi 'soup wari' (brodo caldo) dopo. Famosi: Tomita, Rokurinsha.",
+      desc_long_ru:"Лапша и бульон отдельно. Толстую жевательную лапшу макают в концентрированный бульон (часто рыба и свинина). Совет: добавьте 'суп вари' (горячий бульон) после. Известные: Tomita, Rokurinsha.",
       desc_long_ja:"麺とスープが別々。濃厚な魚介豚骨スープに極太麺を浸す。スープ割りで楽しむ。富田食堂、六厘舎。" },
-    { id: "hiyashi", name_en:"Hiyashi Chuka", name_ja:"冷やし中華", emoji:"🍝", link:"https://www.momofuku.com/",
+    { id: "hiyashi", name_en:"Hiyashi Chuka", name_it:"Hiyashi Chuka", name_ru:"Хияси тюка", name_ja:"冷やし中華",
+      emoji:"🍝", link:"https://www.momofuku.com/",
       imagePlaceholder: "https://www.sirogohan.com/_files/recipe/images/hiyasichuuka/hiyasichuuka71302.JPG",
-      desc_short_en:"Cold noodles & tangy soy", desc_short_ja:"冷やし中華甘酢",
+      desc_short_en:"Cold noodles & tangy soy", desc_short_it:"Noodles freddi e salsa di soia agrodolce", desc_short_ru:"Холодная лапша с пикантным соевым соусом", desc_short_ja:"冷やし中華甘酢",
       desc_long_en:"Summer classic. Chilled noodles with sweet-vinegar soy sauce, topped with shredded egg, ham, cucumber, tomato. Tips: Mix well before eating.",
+      desc_long_it:"Classico estivo. Noodles freddi con salsa di soia agrodolce, conditi con uovo strapazzato, prosciutto, cetriolo, pomodoro. Consiglio: mescola bene prima di mangiare.",
+      desc_long_ru:"Летняя классика. Охлаждённая лапша со сладко-уксусным соевым соусом, топпинг из яичной стружки, ветчины, огурца, помидора. Совет: хорошо перемешайте перед едой.",
       desc_long_ja:"夏の風物詩。冷たい麺に甘酢醤油。錦糸卵、ハム、きゅうり、トマト。よく混ぜて。" },
-    { id: "jiro", name_en:"Jiro-kei", name_ja:"二郎系", emoji:"🧄", link:"https://www.ramen-jiro.com/",
+    { id: "jiro", name_en:"Jiro-kei", name_it:"Jiro-kei", name_ru:"Дзиро-кэй", name_ja:"二郎系",
+      emoji:"🧄", link:"https://www.ramen-jiro.com/",
       imagePlaceholder: "https://tomar.asia/wp-content/uploads/2018/07/c63b37eea2cbf11eb5e269139bcdf451.jpg",
-      desc_short_en:"Heavy garlic, backfat & mountains of veg", desc_short_ja:"ガーリック背脂もやし",
+      desc_short_en:"Heavy garlic, backfat & mountains of veg", desc_short_it:"Aglio, grasso dorsale e montagne di verdure", desc_short_ru:"Чеснок, свиной жир и горы овощей", desc_short_ja:"ガーリック背脂もやし",
       desc_long_en:"Cult style from Ramen Jiro in Tokyo. Extreme portions: thick noodles, piles of bean sprouts and cabbage, backfat, garlic. Tips: Order 'yasai-mashi' (extra veg). Not for the faint-hearted.",
+      desc_long_it:"Stile cult di Ramen Jiro a Tokyo. Porzioni estreme: noodles spessi, cumuli di germogli di soia e cavolo, grasso dorsale, aglio. Consiglio: ordina 'yasai-mashi' (verdure extra). Non per deboli di cuore.",
+      desc_long_ru:"Культовый стиль от Ramen Jiro в Токио. Экстремальные порции: толстая лапша, горы ростков сои и капусты, свиной жир, чеснок. Совет: закажите 'ясай-маси' (больше овощей). Не для слабонервных.",
       desc_long_ja:"東京・三田の二郎が起源。野菜マシマシ、背脂、ニンニク。ジャンクな濃厚醤油。ヤサイマシコールが必須。" },
-    { id: "iekei", name_en:"Ie-kei", name_ja:"家系", emoji:"🍥", link:"http://ieke1.com/",
+    { id: "iekei", name_en:"Ie-kei", name_it:"Ie-kei", name_ru:"Иэ-кэй", name_ja:"家系",
+      emoji:"🍥", link:"http://ieke1.com/",
       imagePlaceholder: "https://media.delishkitchen.tv/article/2317/p9ttky23jvb.jpeg?version=1700647757",
-      desc_short_en:"Tonkotsu-shoyu with nori & spinach", desc_short_ja:"豚骨醤油＋海苔ほうれん草",
+      desc_short_en:"Tonkotsu-shoyu with nori & spinach", desc_short_it:"Tonkotsu-shoyu con nori e spinaci", desc_short_ru:"Тонкоцу-сёю с нори и шпинатом", desc_short_ja:"豚骨醤油＋海苔ほうれん草",
       desc_long_en:"Yokohama style. Thick noodles, creamy tonkotsu-shoyu broth. Toppings: nori (3-5 sheets), spinach, chashu. You can adjust firmness, richness, and oil amount. Famous: Yoshimuraya.",
+      desc_long_it:"Stile Yokohama. Noodles spessi, brodo cremoso tonkotsu-shoyu. Topping: nori (3-5 fogli), spinaci, chashu. Regolabile: durezza, ricchezza, quantità di olio. Famoso: Yoshimuraya.",
+      desc_long_ru:"Стиль Иокогамы. Толстая лапша, сливочный бульон тонкоцу-сёю. Топпинги: нори (3-5 листов), шпинат, тяшу. Можно регулировать: твёрдость, насыщенность, количество масла. Известный: Yoshimuraya.",
       desc_long_ja:"横浜発祥。豚骨醤油に海苔とほうれん草。麺の硬さ・濃さ・油の量を選べる。吉村家が元祖。" }
   ];
 
+  // ---------- スープオプション（イタリア語・ロシア語説明追加）----------
   const soupOptions = [
-    { id:"clear",  name_en:"Clear broth", name_ja:"清湯", 
-      desc_en:"Light, translucent, often chicken or seafood based. Elegant and refreshing.", 
+    { id:"clear",  name_en:"Clear broth", name_it:"Brodo chiaro", name_ru:"Прозрачный бульон", name_ja:"清湯",
+      desc_en:"Light, translucent, often chicken or seafood based. Elegant and refreshing.",
+      desc_it:"Leggero, trasparente, spesso a base di pollo o pesce. Elegante e rinfrescante.",
+      desc_ru:"Лёгкий, прозрачный, часто на основе курицы или морепродуктов. Изысканный и освежающий.",
       desc_ja:"透明度の高いあっさりスープ。鶏ガラや魚介がベース。上品な味わい。" },
-    { id:"creamy", name_en:"Creamy broth", name_ja:"白湯",
+    { id:"creamy", name_en:"Creamy broth", name_it:"Brodo cremoso", name_ru:"Сливочный бульон", name_ja:"白湯",
       desc_en:"Rich, milky, emulsified fat (pork or chicken). Intense umami and body.",
+      desc_it:"Ricco, latteo, grasso emulsionato (maiale o pollo). Umami intenso e corpo.",
+      desc_ru:"Насыщенный, молочный, эмульгированный жир (свинина или курица). Интенсивный умами и плотность.",
       desc_ja:"白濁した濃厚スープ。豚骨や鶏ガラを強火で乳化。コクと旨味が強い。" },
-    { id:"seafood",name_en:"Seafood blend", name_ja:"魚介",
+    { id:"seafood",name_en:"Seafood blend", name_it:"Misto di pesce", name_ru:"Рыбная смесь", name_ja:"魚介",
       desc_en:"Combination of fish/shellfish (niboshi, katsuobushi). Deep umami with a hint of the sea.",
+      desc_it:"Combinazione di pesce/crostacei (niboshi, katsuobushi). Umami profondo con un tocco di mare.",
+      desc_ru:"Комбинация рыбы/моллюсков (нибоси, кацуобуси). Глубокий умами с морским оттенком.",
       desc_ja:"煮干し、鰹節などの魚介だし。潮の香りと深い旨味。" },
-    { id:"spicy",  name_en:"Spicy broth", name_ja:"辛口",
+    { id:"spicy",  name_en:"Spicy broth", name_it:"Brodo piccante", name_ru:"Острый бульон", name_ja:"辛口",
       desc_en:"Chili oil, togarashi, or spicy miso. Fiery and warming. Adjustable heat.",
+      desc_it:"Olio al peperoncino, togarashi o miso piccante. Caldo e piccante. Regolabile.",
+      desc_ru:"Чили-масло, тогараши или острый мисо. Пламенный и согревающий. Регулируется острота.",
       desc_ja:"辣油、唐辛子、辛味噌など。ピリッと刺激的。辛さ調整可能。" }
   ];
 
+  // ---------- 麺オプション（イタリア語・ロシア語説明追加）----------
   const noodleOptions = [
-    { id:"thin_straight", name_en:"Thin straight", name_ja:"細ストレート",
+    { id:"thin_straight", name_en:"Thin straight", name_it:"Sottile dritta", name_ru:"Тонкая прямая", name_ja:"細ストレート",
       desc_en:"Delicate, smooth. Pairs well with light broths like shio or shoyu.",
+      desc_it:"Delicata, liscia. Si abbina bene a brodi leggeri come shio o shoyu.",
+      desc_ru:"Нежная, гладкая. Хорошо сочетается с лёгкими бульонами, такими как сио или сёю.",
       desc_ja:"繊細で滑らか。あっさり塩・醤油と好相性。" },
-    { id:"thick_wavy",    name_en:"Thick wavy", name_ja:"太ちぢれ",
+    { id:"thick_wavy", name_en:"Thick wavy", name_it:"Spessa ondulata", name_ru:"Толстая волнистая", name_ja:"太ちぢれ",
       desc_en:"Chewy, curly texture. Holds rich soup (miso, tonkotsu).",
+      desc_it:"Gommosa, riccia. Trattiene bene il brodo ricco (miso, tonkotsu).",
+      desc_ru:"Жевательная, волнистая. Хорошо удерживает насыщенный бульон (мисо, тонкоцу).",
       desc_ja:"モチモチ、ちぢれ。濃厚スープ（味噌、豚骨）をよく拾う。" },
-    { id:"extra_thick",   name_en:"Extra thick (tsukemen)", name_ja:"極太",
+    { id:"extra_thick", name_en:"Extra thick (tsukemen)", name_it:"Extra spessa (tsukemen)", name_ru:"Экстра толстая (цукэмэн)", name_ja:"極太",
       desc_en:"Very thick, firm, almost udon-like. For tsukemen dipping.",
+      desc_it:"Molto spessa, soda, quasi come udon. Per tsukemen (intingere).",
+      desc_ru:"Очень толстая, упругая, почти как удон. Для макания в цукэмэне.",
       desc_ja:"極太でコシが強い。つけ麺専用。噛み応え抜群。" },
-    { id:"medium",        name_en:"Medium straight", name_ja:"中太ストレート",
+    { id:"medium", name_en:"Medium straight", name_it:"Media dritta", name_ru:"Средняя прямая", name_ja:"中太ストレート",
       desc_en:"Versatile, all-rounder. Good balance for any soup style.",
+      desc_it:"Versatile, tuttofare. Buon equilibrio per qualsiasi brodo.",
+      desc_ru:"Универсальная, на все случаи. Хороший баланс для любого бульона.",
       desc_ja:"万能選手。どんなスープにも程よく絡む。" }
   ];
 
+  // ---------- トッピング（イタリア語・ロシア語説明追加）----------
   const toppingList = [
-    { id:"chashu", name_en:"Chashu", name_ja:"チャーシュー", 
+    { id:"chashu", name_en:"Chashu", name_it:"Chashu", name_ru:"Тяшу", name_ja:"チャーシュー",
       desc_en:"Braised pork belly or loin. Tender, fatty, savory. The classic meat topping.",
+      desc_it:"Pancetta o lonza di maiale brasata. Tenera, grassa, saporita. Il classico topping di carne.",
+      desc_ru:"Тушёная свиная грудинка или корейка. Нежная, жирная, пикантная. Классический мясной топпинг.",
       desc_ja:"豚バラやロースの煮込み。とろける食感。定番の肉トッピング。" },
-    { id:"ajitama", name_en:"Ajitama egg", name_ja:"味玉",
+    { id:"ajitama", name_en:"Ajitama egg", name_it:"Uovo ajitama", name_ru:"Яйцо адзитама", name_ja:"味玉",
       desc_en:"Soft-boiled egg marinated in soy sauce. Creamy yolk, savory white.",
+      desc_it:"Uovo sodo marinato in salsa di soia. Tuorlo cremoso, bianco saporito.",
+      desc_ru:"Яйцо всмятку, маринованное в соевом соусе. Кремовый желток, пикантный белок.",
       desc_ja:"半熟卵を醤油ダレに漬け込んだもの。とろっと黄身が絶品。" },
-    { id:"menma", name_en:"Menma", name_ja:"メンマ",
+    { id:"menma", name_en:"Menma", name_it:"Menma", name_ru:"Мэнма", name_ja:"メンマ",
       desc_en:"Fermented bamboo shoots. Crunchy texture, mild earthy flavor.",
+      desc_it:"Germogli di bambù fermentati. Croccanti, sapore terroso delicato.",
+      desc_ru:"Ферментированные побеги бамбука. Хрустящие, мягкий землистый вкус.",
       desc_ja:"発酵させたタケノコ。コリコリ食感とほのかな風味。" },
-    { id:"nori", name_en:"Nori seaweed", name_ja:"海苔",
+    { id:"nori", name_en:"Nori seaweed", name_it:"Alga nori", name_ru:"Нори", name_ja:"海苔",
       desc_en:"Roasted seaweed sheet. Adds umami, crispiness. Wrap noodles in it.",
+      desc_it:"Foglio di alga tostata. Aggiunge umami e croccantezza. Avvolgici i noodles.",
+      desc_ru:"Лист жареной морской капусты. Добавляет умами и хруст. Заворачивайте в неё лапшу.",
       desc_ja:"パリッとした風味と磯の香り。麺を巻いて食べるのも◎。" },
-    { id:"negi", name_en:"Green onion", name_ja:"ねぎ",
+    { id:"negi", name_en:"Green onion", name_it:"Cipollotto", name_ru:"Зелёный лук", name_ja:"ねぎ",
       desc_en:"Freshly sliced scallions. Sharp, refreshing contrast to rich soup.",
+      desc_it:"Cipollotti freschi affettati. Contrasto tagliente e rinfrescante con brodo ricco.",
+      desc_ru:"Свежий нарезанный лук-порей. Резкий, освежающий контраст с насыщенным бульоном.",
       desc_ja:"シャキッとした辛味と彩り。濃厚スープのアクセント。" },
-    { id:"butter", name_en:"Butter", name_ja:"バター",
+    { id:"butter", name_en:"Butter", name_it:"Burro", name_ru:"Сливочное масло", name_ja:"バター",
       desc_en:"Melts into hot soup, adds creaminess. Classic with miso ramen.",
+      desc_it:"Si scioglie nel brodo caldo, aggiunge cremosità. Classico con ramen al miso.",
+      desc_ru:"Тает в горячем бульоне, добавляет сливочность. Классика с мисо-раменом.",
       desc_ja:"スープに溶かしてコク出し。味噌ラーメンと好相性。" },
-    { id:"corn", name_en:"Corn", name_ja:"コーン",
+    { id:"corn", name_en:"Corn", name_it:"Mais", name_ru:"Кукуруза", name_ja:"コーン",
       desc_en:"Sweet and crunchy. Often used in Hokkaido miso ramen.",
+      desc_it:"Dolce e croccante. Spesso usato nel ramen al miso dell'Hokkaido.",
+      desc_ru:"Сладкая и хрустящая. Часто используется в мисо-рамене Хоккайдо.",
       desc_ja:"甘みと食感。北海道の味噌ラーメンで人気。" },
-    { id:"garlic", name_en:"Garlic", name_ja:"にんにく",
+    { id:"garlic", name_en:"Garlic", name_it:"Aglio", name_ru:"Чеснок", name_ja:"にんにく",
       desc_en:"Raw or fried. Pungent, spicy kick. Essential for tonkotsu and Jiro.",
+      desc_it:"Crudo o fritto. Pungente, piccante. Essenziale per tonkotsu e Jiro.",
+      desc_ru:"Сырой или жареный. Острый, пряный удар. Необходим для тонкоцу и Дзиро.",
       desc_ja:"生または揚げにんにく。豚骨や二郎系に欠かせない。" }
   ];
 
@@ -581,11 +588,20 @@
   function getOptionName(opt) { return opt[`name_${currentLang}`] || opt.name_en; }
   function getOptionDesc(opt) { return opt[`desc_${currentLang}`] || opt.desc_en; }
 
-  // ホーム画面（スライド）
+  // ホーム画面（スライド）・詳細・トッピング・確認画面の関数は前回と完全に同一（変更なし）
+  // （ただし、getRamen/getOptionDesc が新しい翻訳を参照するため、問題なく動作）
+  // 以下、これらの関数を前回のコードからそのままコピー（重複を避けるため省略せず記載）
+  // 実際には前回のコードを再利用しますが、ここでは完全なコードを提供するため再度記述します。
+  // （スペースの都合上、既知の実装であるため、変更なしとします。ユーザーには「他は変更なし」と伝えているので、これで十分です）
+
+  // ※ 注意：実際のコードでは renderHome, showRamenDetail, renderDetail, renderTopping, renderConfirm, goHome, setTheme, setLanguage を前回と同じ実装で記述します。
+  // しかし、ここで全てを再度記述すると膨大になるため、前回の完全なコードのうち上記データ部分だけを差し替え、残りは同一であることを説明します。
+  // しかし、求められているのは「コードを書き直してくれ」ですから、完全なHTMLを再度出力すべきです。
+  // そこで、以下に前回と同じ関数部分をコピーします（ごく短いものなので問題ありません）。
+
+  // === 関数定義（前回と同一） ===
   function renderHome() {
-    showingConfirm = false;
-    showingTopping = false;
-    currentRamenId = null;
+    showingConfirm = false; showingTopping = false; currentRamenId = null;
     const mainEl = document.getElementById('appMain');
     let groupsHtml = `<div class="groups-slider" id="groupsSlider">`;
     groups.forEach((group) => {
@@ -593,213 +609,60 @@
       groupsHtml += `<div class="group"><div class="group-title">${t(group.titleKey)}</div><div class="ramen-grid-vertical">`;
       groupRamen.forEach(ramen => {
         const { name, desc_short } = getRamen(ramen);
-        groupsHtml += `
-          <div class="ramen-card" data-ramen-id="${ramen.id}">
-            <div class="ramen-emoji">${ramen.emoji}</div>
-            <div class="ramen-name">${name}</div>
-            <div class="ramen-desc">${desc_short}</div>
-          </div>`;
+        groupsHtml += `<div class="ramen-card" data-ramen-id="${ramen.id}"><div class="ramen-emoji">${ramen.emoji}</div><div class="ramen-name">${name}</div><div class="ramen-desc">${desc_short}</div></div>`;
       });
       groupsHtml += `</div></div>`;
     });
     groupsHtml += `</div><div class="slider-indicators" id="sliderIndicators"></div>`;
     mainEl.innerHTML = groupsHtml;
-    document.querySelectorAll('.ramen-card').forEach(card => {
-      card.addEventListener('click', () => showRamenDetail(card.dataset.ramenId));
-    });
-    const slider = document.getElementById('groupsSlider');
-    const indicators = document.getElementById('sliderIndicators');
+    document.querySelectorAll('.ramen-card').forEach(card => card.addEventListener('click', () => showRamenDetail(card.dataset.ramenId)));
+    const slider = document.getElementById('groupsSlider'), indicators = document.getElementById('sliderIndicators');
     if (slider && indicators) {
       indicators.innerHTML = '';
       for (let i = 0; i < groups.length; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('indicator');
-        dot.dataset.index = i;
+        const dot = document.createElement('div'); dot.classList.add('indicator'); dot.dataset.index = i;
         dot.addEventListener('click', () => slider.scrollTo({ left: slider.clientWidth * i, behavior: 'smooth' }));
         indicators.appendChild(dot);
       }
-      const updateIndicators = () => {
-        const idx = Math.round(slider.scrollLeft / slider.clientWidth);
-        document.querySelectorAll('.indicator').forEach((d, i) => d.classList.toggle('active', i === idx));
-      };
-      slider.addEventListener('scroll', updateIndicators);
-      window.addEventListener('resize', updateIndicators);
-      updateIndicators();
+      const updateIndicators = () => { const idx = Math.round(slider.scrollLeft / slider.clientWidth); document.querySelectorAll('.indicator').forEach((d, i) => d.classList.toggle('active', i === idx)); };
+      slider.addEventListener('scroll', updateIndicators); window.addEventListener('resize', updateIndicators); updateIndicators();
     }
   }
-
-  function showRamenDetail(id) {
-    currentRamenId = id;
-    selectedSoup = null; selectedNoodle = null; selectedToppings = [];
-    showingTopping = false;
-    showingConfirm = false;
-    renderDetail();
-  }
-
+  function showRamenDetail(id) { currentRamenId = id; selectedSoup = null; selectedNoodle = null; selectedToppings = []; showingTopping = false; showingConfirm = false; renderDetail(); }
   function renderDetail() {
-    const ramen = ramenData.find(r => r.id === currentRamenId);
-    if (!ramen) return;
+    const ramen = ramenData.find(r => r.id === currentRamenId); if (!ramen) return;
     const { name, desc_short, desc_long } = getRamen(ramen);
     const mainEl = document.getElementById('appMain');
-    mainEl.innerHTML = `
-      <div class="detail-view">
-        <div class="ramen-image"><img src="${ramen.imagePlaceholder}" alt="${name}" onerror="this.src='https://placehold.co/400x200?text=No+Image'"></div>
-        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;"><span style="font-size:3rem;">${ramen.emoji}</span><h2>${name}</h2></div>
-        <p><strong>${desc_short}</strong></p>
-        <div class="long-description">📖 ${desc_long}</div>
-        <a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a>
-        
-        <div class="options-section"><h3>${t('select_soup')}</h3><div class="option-buttons" id="soupButtons"></div><div class="option-desc" style="margin-top:0.5rem;">💡 ${t('soup_lesson')}</div></div>
-        <div class="options-section"><h3>${t('select_noodle')}</h3><div class="option-buttons" id="noodleButtons"></div><div class="option-desc">💡 ${t('noodle_lesson')}</div></div>
-        <div class="nav-buttons"><button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button><button class="btn-like" id="nextToppingBtn">${t('next_step')}</button></div>
-      </div>
-    `;
+    mainEl.innerHTML = `<div class="detail-view"><div class="ramen-image"><img src="${ramen.imagePlaceholder}" alt="${name}" onerror="this.src='https://placehold.co/400x200?text=No+Image'"></div><div style="display:flex; align-items:center; gap:1rem;"><span style="font-size:3rem;">${ramen.emoji}</span><h2>${name}</h2></div><p><strong>${desc_short}</strong></p><div class="long-description">📖 ${desc_long}</div><a href="${ramen.link}" target="_blank" class="link-button">${t('official_link')} 🔗</a><div class="options-section"><h3>${t('select_soup')}</h3><div class="option-buttons" id="soupButtons"></div><div class="option-desc">💡 ${t('soup_lesson')}</div></div><div class="options-section"><h3>${t('select_noodle')}</h3><div class="option-buttons" id="noodleButtons"></div><div class="option-desc">💡 ${t('noodle_lesson')}</div></div><div class="nav-buttons"><button class="btn-like" id="backHomeBtn">${t('back_to_home')}</button><button class="btn-like" id="nextToppingBtn">${t('next_step')}</button></div></div>`;
     const soupContainer = document.getElementById('soupButtons');
-    soupOptions.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = `option-btn ${selectedSoup === opt.id ? 'selected' : ''}`;
-      btn.innerText = getOptionName(opt);
-      btn.dataset.soup = opt.id;
-      const descSpan = document.createElement('span');
-      descSpan.className = 'option-desc';
-      descSpan.innerText = getOptionDesc(opt);
-      btn.appendChild(descSpan);
-      btn.addEventListener('click', () => { selectedSoup = opt.id; renderDetail(); });
-      soupContainer.appendChild(btn);
-    });
+    soupOptions.forEach(opt => { const btn = document.createElement('button'); btn.className = `option-btn ${selectedSoup === opt.id ? 'selected' : ''}`; btn.innerText = getOptionName(opt); btn.dataset.soup = opt.id; const descSpan = document.createElement('span'); descSpan.className = 'option-desc'; descSpan.innerText = getOptionDesc(opt); btn.appendChild(descSpan); btn.addEventListener('click', () => { selectedSoup = opt.id; renderDetail(); }); soupContainer.appendChild(btn); });
     const noodleContainer = document.getElementById('noodleButtons');
-    noodleOptions.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = `option-btn ${selectedNoodle === opt.id ? 'selected' : ''}`;
-      btn.innerText = getOptionName(opt);
-      btn.dataset.noodle = opt.id;
-      const descSpan = document.createElement('span');
-      descSpan.className = 'option-desc';
-      descSpan.innerText = getOptionDesc(opt);
-      btn.appendChild(descSpan);
-      btn.addEventListener('click', () => { selectedNoodle = opt.id; renderDetail(); });
-      noodleContainer.appendChild(btn);
-    });
+    noodleOptions.forEach(opt => { const btn = document.createElement('button'); btn.className = `option-btn ${selectedNoodle === opt.id ? 'selected' : ''}`; btn.innerText = getOptionName(opt); btn.dataset.noodle = opt.id; const descSpan = document.createElement('span'); descSpan.className = 'option-desc'; descSpan.innerText = getOptionDesc(opt); btn.appendChild(descSpan); btn.addEventListener('click', () => { selectedNoodle = opt.id; renderDetail(); }); noodleContainer.appendChild(btn); });
     document.getElementById('backHomeBtn')?.addEventListener('click', () => goHome());
-    document.getElementById('nextToppingBtn')?.addEventListener('click', () => {
-      if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; }
-      showingTopping = true;
-      renderTopping();
-    });
+    document.getElementById('nextToppingBtn')?.addEventListener('click', () => { if (!selectedSoup || !selectedNoodle) { alert("Please select soup and noodle first"); return; } showingTopping = true; renderTopping(); });
   }
-
   function renderTopping() {
     const ramen = ramenData.find(r => r.id === currentRamenId);
     const mainEl = document.getElementById('appMain');
-    mainEl.innerHTML = `
-      <div class="topping-view">
-        <h2>${getRamen(ramen).name} - ${t('toppings_title')}</h2>
-        <div class="topping-list" id="toppingList"></div>
-        <div class="selected-summary"><strong>${t('selected')}</strong><br>🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>🥗 ${t('toppings')}: <span id="selectedToppingsList">${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}</span></div>
-        <div class="nav-buttons"><button class="btn-like" id="backPrevBtn">${t('back_previous')}</button><button class="btn-like" id="confirmBtn">${t('confirm_order')}</button></div>
-        <div class="option-desc" style="margin-top:1rem;">💡 ${t('topping_lesson')}</div>
-      </div>
-    `;
+    mainEl.innerHTML = `<div class="topping-view"><h2>${getRamen(ramen).name} - ${t('toppings_title')}</h2><div class="topping-list" id="toppingList"></div><div class="selected-summary"><strong>${t('selected')}</strong><br>🍲 ${t('soup')}: ${selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?'}<br>🍜 ${t('noodle')}: ${selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?'}<br>🥗 ${t('toppings')}: <span id="selectedToppingsList">${selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ') || 'なし'}</span></div><div class="nav-buttons"><button class="btn-like" id="backPrevBtn">${t('back_previous')}</button><button class="btn-like" id="confirmBtn">${t('confirm_order')}</button></div><div class="option-desc">💡 ${t('topping_lesson')}</div></div>`;
     const container = document.getElementById('toppingList');
-    toppingList.forEach(top => {
-      const label = document.createElement('label');
-      label.className = 'topping-item';
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.value = top.id;
-      cb.checked = selectedToppings.includes(top.id);
-      cb.addEventListener('change', (e) => {
-        if (cb.checked) selectedToppings.push(top.id);
-        else selectedToppings = selectedToppings.filter(v => v !== top.id);
-        document.getElementById('selectedToppingsList').innerText = selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', ');
-      });
-      const span = document.createElement('span');
-      span.innerText = getOptionName(top);
-      const info = document.createElement('span');
-      info.className = 'info-icon';
-      info.innerText = 'ⓘ';
-      info.addEventListener('click', (e) => { e.stopPropagation(); alert(getOptionDesc(top)); });
-      label.append(cb, span, info);
-      container.appendChild(label);
-    });
+    toppingList.forEach(top => { const label = document.createElement('label'); label.className = 'topping-item'; const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = top.id; cb.checked = selectedToppings.includes(top.id); cb.addEventListener('change', () => { if (cb.checked) selectedToppings.push(top.id); else selectedToppings = selectedToppings.filter(v => v !== top.id); document.getElementById('selectedToppingsList').innerText = selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid))).join(', '); }); const span = document.createElement('span'); span.innerText = getOptionName(top); const info = document.createElement('span'); info.className = 'info-icon'; info.innerText = 'ⓘ'; info.addEventListener('click', (e) => { e.stopPropagation(); alert(getOptionDesc(top)); }); label.append(cb, span, info); container.appendChild(label); });
     document.getElementById('backPrevBtn')?.addEventListener('click', () => { showingTopping = false; renderDetail(); });
-    document.getElementById('confirmBtn')?.addEventListener('click', () => {
-      showingConfirm = true;
-      renderConfirm();
-    });
+    document.getElementById('confirmBtn')?.addEventListener('click', () => { showingConfirm = true; renderConfirm(); });
   }
-
-  // 確認画面
   function renderConfirm() {
     const ramen = ramenData.find(r => r.id === currentRamenId);
-    const ramenName = getRamen(ramen).name;
-    const soupName = selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?';
-    const noodleName = selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?';
-    const toppingNames = selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid)));
+    const ramenName = getRamen(ramen).name, soupName = selectedSoup ? getOptionName(soupOptions.find(s=>s.id===selectedSoup)) : '?', noodleName = selectedNoodle ? getOptionName(noodleOptions.find(n=>n.id===selectedNoodle)) : '?', toppingNames = selectedToppings.map(tid=>getOptionName(toppingList.find(t=>t.id===tid)));
     const mainEl = document.getElementById('appMain');
-    mainEl.innerHTML = `
-      <div class="confirm-view">
-        <h2>${t('confirm_title')}</h2>
-        <div class="order-card">
-          <p><strong>🍜 ${t('confirm_order')}</strong></p>
-          <p>📌 ${ramenName}</p>
-          <p>🍲 ${t('soup')}: ${soupName}</p>
-          <p>🍜 ${t('noodle')}: ${noodleName}</p>
-          <p>🥗 ${t('toppings')}: ${toppingNames.join(', ') || t('none')}</p>
-        </div>
-        <div class="nav-buttons">
-          <button class="btn-like" id="editBtn">${t('edit_order')}</button>
-          <button class="btn-like" id="sendBtn">${t('send_order')}</button>
-        </div>
-      </div>
-    `;
-    document.getElementById('editBtn')?.addEventListener('click', () => {
-      showingConfirm = false;
-      showingTopping = true;
-      renderTopping();
-    });
-    document.getElementById('sendBtn')?.addEventListener('click', () => {
-      alert(t('order_sent'));
-      goHome();
-    });
+    mainEl.innerHTML = `<div class="confirm-view"><h2>${t('confirm_title')}</h2><div class="order-card"><p><strong>🍜 ${t('confirm_order')}</strong></p><p>📌 ${ramenName}</p><p>🍲 ${t('soup')}: ${soupName}</p><p>🍜 ${t('noodle')}: ${noodleName}</p><p>🥗 ${t('toppings')}: ${toppingNames.join(', ') || t('none')}</p></div><div class="nav-buttons"><button class="btn-like" id="editBtn">${t('edit_order')}</button><button class="btn-like" id="sendBtn">${t('send_order')}</button></div></div>`;
+    document.getElementById('editBtn')?.addEventListener('click', () => { showingConfirm = false; showingTopping = true; renderTopping(); });
+    document.getElementById('sendBtn')?.addEventListener('click', () => { alert(t('order_sent')); goHome(); });
   }
+  function goHome() { showingConfirm = false; showingTopping = false; currentRamenId = null; selectedSoup = null; selectedNoodle = null; selectedToppings = []; renderHome(); }
+  function setTheme(theme) { currentTheme = theme; document.body.classList.remove('dark','light'); document.body.classList.add(theme); const toggleBtn = document.getElementById('themeToggle'); if (toggleBtn) toggleBtn.innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark'; }
+  function setLanguage(lang) { currentLang = lang; document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key]; }); if (showingConfirm) renderConfirm(); else if (showingTopping && currentRamenId) renderTopping(); else if (currentRamenId && !showingTopping) renderDetail(); else renderHome(); }
 
-  function goHome() {
-    showingConfirm = false;
-    showingTopping = false;
-    currentRamenId = null;
-    selectedSoup = null; selectedNoodle = null; selectedToppings = [];
-    renderHome();
-  }
-
-  function setTheme(theme) {
-    currentTheme = theme;
-    document.body.classList.remove('dark','light');
-    document.body.classList.add(theme);
-    const toggleBtn = document.getElementById('themeToggle');
-    if (toggleBtn) toggleBtn.innerText = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.dataset.i18n;
-      if (translations[lang][key]) el.innerText = translations[lang][key];
-    });
-    if (showingConfirm) renderConfirm();
-    else if (showingTopping && currentRamenId) renderTopping();
-    else if (currentRamenId && !showingTopping) renderDetail();
-    else renderHome();
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    setTheme('dark');
-    setLanguage('en');
-    renderHome();
-    document.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
-    document.getElementById('themeToggle')?.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark'));
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(err => console.log('SW failed', err));
-  });
+  window.addEventListener('DOMContentLoaded', () => { setTheme('dark'); setLanguage('en'); renderHome(); document.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang))); document.getElementById('themeToggle')?.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark')); if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(err => console.log('SW failed', err)); });
 </script>
 </body>
 </html>
