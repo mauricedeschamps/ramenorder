@@ -80,9 +80,11 @@
       gap: 0.4rem;
     }
 
-    /* スライド式グループ */
+    /* スライド式グループ - インストール後も確実に横スクロールするよう修正 */
     .groups-slider {
       display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
@@ -95,9 +97,12 @@
       display: none;
     }
     .group {
-      flex: 0 0 100%;
+      flex: 0 0 auto;
+      width: 100%;
+      min-width: 100%;
       scroll-snap-align: start;
       padding: 0 0.5rem;
+      box-sizing: border-box;
     }
     .group-title {
       font-size: 1.3rem;
@@ -445,9 +450,9 @@
   let selectedNoodle = null;
   let selectedToppings = [];
   let showingTopping = false;
-  let showingConfirm = false;   // 確認画面フラグ
+  let showingConfirm = false;
 
-  // ---------- データ定義（前回と同じ）----------
+  // ラーメンデータ（画像URLはご指定のまま維持）
   const ramenData = [
     { id: "shoyu", name_en:"Shoyu", name_ja:"醤油", emoji:"🍜", link:"https://www.afuri.com/",
       imagePlaceholder: "https://zenb.jp/cdn/shop/articles/1030_9d5eca8a-8b38-4179-bcb4-63d16f117c72_645x.jpg?v=1738041434",
@@ -724,7 +729,7 @@
     });
   }
 
-  // 新規: 確認画面
+  // 確認画面
   function renderConfirm() {
     const ramen = ramenData.find(r => r.id === currentRamenId);
     const ramenName = getRamen(ramen).name;
@@ -750,13 +755,12 @@
     `;
     document.getElementById('editBtn')?.addEventListener('click', () => {
       showingConfirm = false;
-      showingTopping = true;  // トッピング画面に戻る
+      showingTopping = true;
       renderTopping();
     });
     document.getElementById('sendBtn')?.addEventListener('click', () => {
       alert(t('order_sent'));
-      // ここで注文データをサーバーへ送信する処理を将来追加
-      goHome();  // 送信後はホームへ
+      goHome();
     });
   }
 
